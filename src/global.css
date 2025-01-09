@@ -169,7 +169,7 @@ body.dark-theme {
   border-radius: 50%;
   text-align: center;
   line-height: 100px;
-  font-family: sans-serif;
+  /* font-family: sans-serif; */
   font-size: 20px;
   color: #5957C5;
   letter-spacing: 2px;

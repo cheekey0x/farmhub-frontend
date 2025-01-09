@@ -22,8 +22,8 @@ export default function LoadingLogo({ sx, ...other }: BoxProps): JSX.Element {
       {...other}
     >
       <Image
-        alt="loading yieldlab logo"
-        src="/logo/logo.svg"
+        alt="Farmhub logo"
+        src="/logo/logo.png"
         className="loading-logo"
         sx={{ height: "50px", width: "50px" }}
       />

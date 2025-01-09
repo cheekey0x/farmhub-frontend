@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 
 import { alpha } from "@mui/material/styles";
 import Box, { BoxProps } from "@mui/material/Box";
+import Image from "src/components/image";
 
 import Logo from "../logo";
 
@@ -49,7 +50,11 @@ export default function SplashScreen({ sx, ...other }: BoxProps) {
             repeat: Infinity
           }}
         >
-          <Logo disabledLink sx={{ width: 64, height: 64 }} />
+          <Image
+            alt="logo"
+            src="/logo/logo.png"
+            sx={{ height: 70 }}
+          />
         </m.div>
 
         <Box
@@ -66,7 +71,7 @@ export default function SplashScreen({ sx, ...other }: BoxProps) {
             height: 100,
             position: "absolute",
             border: (theme) =>
-              `solid 3px ${alpha(theme.palette.primary.dark, 0.24)}`
+              `solid 3px ${alpha(theme.palette.background.main, 0.24)}`
           }}
         />
 
@@ -88,7 +93,7 @@ export default function SplashScreen({ sx, ...other }: BoxProps) {
             height: 120,
             position: "absolute",
             border: (theme) =>
-              `solid 8px ${alpha(theme.palette.primary.dark, 0.24)}`
+              `solid 8px ${alpha(theme.palette.background.main, 0.24)}`
           }}
         />
       </>

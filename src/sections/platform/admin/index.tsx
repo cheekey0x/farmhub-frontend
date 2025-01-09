@@ -154,68 +154,76 @@ export default function UserListView() {
         <>
             <Container maxWidth={settings.themeStretch ? false : 'lg'}>
                 <CustomBreadcrumbs
-                    heading={t('Admin')}
+                    // heading={t('Admin')}
                     links={[
                         { name: t('Platform Setting'), href: paths.dashboard.root },
                         { name: t('Admin'), href: paths.platform.admin },
                     ]}
-                    action={
-                        <Button
-                            component={RouterLink}
-                            href={paths.platform.admin}
-                            variant="contained"
-                            startIcon={<Iconify icon="mingcute:add-line" />}
-                        >
-                            {t('Add Admin')}
-                        </Button>
-                    }
+                    // action={
+                    //     <Button
+                    //         component={RouterLink}
+                    //         href={paths.platform.admin}
+                    //         variant="contained"
+                    //         startIcon={<Iconify icon="mingcute:add-line" />}
+                    //     >
+                    //         {t('Add Admin')}
+                    //     </Button>
+                    // }
                     sx={{
                         mb: { xs: 2, md: 3 },
                     }}
                 />
 
-                <Card>
-                    <Tabs
-                        value={filters.status}
-                        // onChange={handleFilterStatus}
-                        sx={{
-                            px: 2.5,
-                            boxShadow: (theme) => `inset 0 -2px 0 0 ${alpha(theme.palette.grey[500], 0.08)}`,
-                        }}
-                    >
-                        {STATUS_OPTIONS.map((tab) => (
-                            <Tab
-                                key={tab.value}
-                                iconPosition="end"
-                                value={tab.value}
-                                label={tab.label}
-                                icon={
-                                    <Label
-                                        variant={
-                                            ((tab.value === 'all' || tab.value === filters.status) && 'filled') || 'soft'
-                                        }
-                                        color={
-                                            (tab.value === 'active' && 'success') ||
-                                            (tab.value === 'pending' && 'warning') ||
-                                            (tab.value === 'banned' && 'error') ||
-                                            'default'
-                                        }
-                                    >
-                                        {tab.value === 'all' && _userList.length}
-                                        {tab.value === 'active' &&
-                                            _userList.filter((user) => user.status === 'active').length}
+                <Card
+                    sx={{
+                        // filter: "drop-shadow(0 0 0.5rem)"
+                        boxShadow: "rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px"
+                    }}
+                >
+                    {false && (
+                        <Tabs
+                            value={filters.status}
+                            // onChange={handleFilterStatus}
+                            sx={{
+                                px: 2.5,
+                                boxShadow: (theme) => `inset 0 -2px 0 0 ${alpha(theme.palette.grey[500], 0.08)}`,
+                            }}
+                        >
+                            {STATUS_OPTIONS.map((tab) => (
+                                <Tab
+                                    key={tab.value}
+                                    iconPosition="end"
+                                    value={tab.value}
+                                    label={tab.label}
+                                    icon={
+                                        <Label
+                                            variant={
+                                                ((tab.value === 'all' || tab.value === filters.status) && 'filled') || 'soft'
+                                            }
+                                            color={
+                                                (tab.value === 'active' && 'success') ||
+                                                (tab.value === 'pending' && 'warning') ||
+                                                (tab.value === 'banned' && 'error') ||
+                                                'default'
+                                            }
+                                        >
+                                            {tab.value === 'all' && _userList.length}
+                                            {tab.value === 'active' &&
+                                                _userList.filter((user) => user.status === 'active').length}
 
-                                        {tab.value === 'pending' &&
-                                            _userList.filter((user) => user.status === 'pending').length}
-                                        {tab.value === 'banned' &&
-                                            _userList.filter((user) => user.status === 'banned').length}
-                                        {tab.value === 'rejected' &&
-                                            _userList.filter((user) => user.status === 'rejected').length}
-                                    </Label>
-                                }
-                            />
-                        ))}
-                    </Tabs>
+                                            {tab.value === 'pending' &&
+                                                _userList.filter((user) => user.status === 'pending').length}
+                                            {tab.value === 'banned' &&
+                                                _userList.filter((user) => user.status === 'banned').length}
+                                            {tab.value === 'rejected' &&
+                                                _userList.filter((user) => user.status === 'rejected').length}
+                                        </Label>
+                                    }
+                                />
+                            ))}
+                        </Tabs>
+
+                    )}
 
                     <UserTableToolbar
                         filters={filters}

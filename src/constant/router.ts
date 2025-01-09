@@ -1,9 +1,9 @@
 export const ENDPOINTS = {
   protectedRoutes: {
-    url: ["/app", "/delegator", "/project", "/account"]
+    url: ["/app", "/platform"]
   },
   authRoutes: {
-    url: ["/login", "/login-wallet", "/register", "/project-invitation", "/"]
+    url: ["/register", "/"]
   }
 };
 

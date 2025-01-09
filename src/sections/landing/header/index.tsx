@@ -29,6 +29,7 @@ import ScrollTop from "./scroll-top";
 import { debounce } from "lodash";
 import LanguagePopover from "src/layouts/admin/common/language-popover";
 import LoginPopover from "src/pages/login";
+import Slide from '@mui/material/Slide';
 
 interface Props {
   /**
@@ -36,6 +37,7 @@ interface Props {
    * You won't need it on your project.
    */
   window?: () => Window;
+  children?: React.ReactElement<unknown>;
 }
 
 const drawerWidth = 240;
@@ -58,9 +60,10 @@ const navItems = [
   }
 ];
 
+
+
 export default function LandingHeader(props: Props) {
   const { window } = props;
-
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [activeNavItem, setActiveNavItem] = useState(navItems[0].name);
 
@@ -108,12 +111,23 @@ export default function LandingHeader(props: Props) {
 
     return () => observer.disconnect();
   };
+  const HideOnScroll = (props: Props) => {
+    const { children, window } = props;
+    const trigger = useScrollTrigger({
+      target: window ? window() : undefined,
+    });
 
+    return (
+      <Slide appear={false} direction="down" in={!trigger}>
+        {children ?? <div />}
+      </Slide>
+    );
+  }
 
-  useEffect(() => {
-    const cleanup = onChangeScroll();
-    return cleanup;
-  }, []);
+  // useEffect(() => {
+  //   const cleanup = onChangeScroll();
+  //   return cleanup;
+  // }, []);
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
@@ -154,88 +168,93 @@ export default function LandingHeader(props: Props) {
   return (
     <Box sx={{ display: "flex" }} id="back-to-top-anchor">
       <CssBaseline />
-      <AppBar component="nav">
-        <Toolbar
-          sx={{
-            flexDirection: "row",
-            justifyContent: { xs: "space-between", md: "space-between" },
-            // backdropFilter: scorllTrigger ? "blur(2rem)" : "blur(rem)",
-            backdropFilter: "blur(2rem)",
-            pt: { xs: 1, md: 3 },
-            pb: { xs: 1, md: 2 },
-            px: { xs: 4, md: 3 }
-          }}
-        >
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{ display: { sm: "none" } }}
+      <HideOnScroll {...props}>
+        <AppBar component="nav">
+          <Toolbar
+            sx={{
+              flexDirection: "row",
+              justifyContent: { xs: "space-between", md: "space-between" },
+              backgroundColor: theme.palette.background.main,
+              backgroundImage: "url('/assets/images/landing/pattern-bg.png')",
+              backgroundBlendMode: "overlay",
+              backgroundSize: "cover",
+              pt: { xs: 1, md: 2 },
+              pb: { xs: 1, md: 2 },
+              px: { xs: 4, md: 3 }
+            }}
           >
-            <MenuIcon />
-          </IconButton>
-          <Stack
-            flexDirection="row"
-            onClick={() => router.push("/")}
-            alignItems="center"
-            sx={{ cursor: "pointer" }}
-          >
-            <Box
-              display="flex"
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="start"
+              onClick={handleDrawerToggle}
+              sx={{ display: { sm: "none" } }}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Stack
+              flexDirection="row"
+              onClick={() => router.push("/")}
               alignItems="center"
+              sx={{ cursor: "pointer" }}
             >
-              <Image
-                alt="logo"
-                src="/logo/logo.png"
-                sx={{ height: 32 }}
-              />
-              <Typography
-                variant="h5"
-                component="h2"
+              <Box
+                display="flex"
+                alignItems="center"
+              >
+                <Image
+                  alt="logo"
+                  src="/logo/logo.png"
+                  sx={{ height: 32 }}
+                />
+                <Typography
+                  variant="h5"
+                  component="h2"
+                  sx={{
+                    color: "#fff",
+                    ml: 1,
+                    fontWeight: 500,
+                    fontFamily: "KANIT"
+                  }}
+                >
+                  飞鸟科技FarmHub智慧农业系统
+                </Typography>
+              </Box>
+            </Stack>
+            <Stack
+              flexDirection="row"
+            >
+              <Button
                 sx={{
-                  color: "#236634",
-                  ml: 1,
-                  fontWeight: 500,
-                  fontFamily: "KANIT"
+                  py: 0.7,
+                  px: 4,
+                  display: { xs: "none", sm: "flex" },
+                  fontWeight: "600",
+                  lineHeight: "18.23px",
+                  // background: "linear-gradient(90deg, #1A61ED 0%, #9747FF 100%)"
+                  // background: "linear-gradient(90deg,rgb(233, 202, 5) 0%,rgb(218, 175, 23) 100%)",
+                  background: "linear-gradient(90deg,rgb(30, 156, 76) 0%,rgb(103, 186, 132) 100%)",
+                  mr: 2
                 }}
+              // onClick={() => router.push("/login")}
               >
-                飞鸟科技FarmHub智慧农业系统
-              </Typography>
-            </Box>
-          </Stack>
-          <Stack
-            flexDirection="row"
-          >
-            <Button
-              sx={{
-                py: 0.7,
-                px: 4,
-                display: { xs: "none", sm: "flex" },
-                fontWeight: "600",
-                lineHeight: "18.23px",
-                // background: "linear-gradient(90deg, #1A61ED 0%, #9747FF 100%)"
-                background: "linear-gradient(90deg,rgb(30, 156, 76) 0%,rgb(103, 186, 132) 100%)",
-                mr: 2
-              }}
-            // onClick={() => router.push("/login")}
-            >
 
-              <Typography
-                className="font-clash"
-                variant="body1"
-                letterSpacing={1}
-                fontWeight={700}
-                color="white"
-              >
-                Demo
-              </Typography>
-            </Button>
-            <LoginPopover />
-            {/* <LanguagePopover /> */}
-          </Stack>
-        </Toolbar>
-      </AppBar>
+                <Typography
+                  className="font-clash"
+                  variant="body1"
+                  letterSpacing={1}
+                  fontWeight={700}
+                  color="white"
+                >
+                  Demo
+                </Typography>
+              </Button>
+              <LoginPopover />
+              {/* <LanguagePopover /> */}
+            </Stack>
+          </Toolbar>
+        </AppBar>
+      </HideOnScroll>
       <nav>
         <Drawer
           container={container}
@@ -263,11 +282,13 @@ export default function LandingHeader(props: Props) {
           aria-label="scroll back to top"
           sx={{
             background: "linear-gradient(90deg, #1A61ED 0%, #9747FF 100%)"
+            // background: "linear-gradient(90deg,rgb(253, 217, 37) 0%,rgb(255, 230, 108) 100%)",
           }}
         >
           <KeyboardArrowUp />
         </Fab>
       </ScrollTop>
+
     </Box>
   );
 }

@@ -68,17 +68,13 @@ export default function Landing() {
         sx={{
           position: "absolute",
           zIndex: -10,
-          // filter: "blur(5rem)",
           width: "100vw",
           height: "100vh",
           overflow: "hidden",
           "& video": {
-            // transform: "rotate(90deg)",
             width: { xs: "200%", md: "100%" },
             height: "200%",
             objectFit: "cover",
-            // opacity: 0.8,
-            // filter: "blur(5rem)"
           }
         }}
       >

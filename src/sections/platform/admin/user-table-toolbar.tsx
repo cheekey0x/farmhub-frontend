@@ -74,6 +74,7 @@ export default function UserTableToolbar({
 
                     <Select
                         multiple
+                        size='small'
                         value={filters.role}
                         onChange={handleFilterRole}
                         input={<OutlinedInput label="Role" />}
@@ -97,6 +98,7 @@ export default function UserTableToolbar({
                     <TextField
                         fullWidth
                         value={filters.name}
+                        size='small'
                         onChange={handleFilterName}
                         placeholder="Search..."
                         InputProps={{

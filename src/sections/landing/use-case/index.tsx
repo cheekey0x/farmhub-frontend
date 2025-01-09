@@ -2,10 +2,9 @@ import { Box, Grid, Stack, Typography, Button, Container } from "@mui/material";
 import { m } from "framer-motion";
 import React from "react";
 import Image from "src/components/image";
-import { varBounce, MotionViewport } from "src/components/animate";
-import { Icon } from '@mui/material';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
+import { useTheme } from "@mui/material";
 
 const service_infos = [
 	{ title: "Farm Address", content: "1 Cooke Road, Westcosnsin, United States" },
@@ -14,6 +13,7 @@ const service_infos = [
 ];
 
 function UseCase() {
+	const theme = useTheme()
 	return (
 		<Container>
 			<Stack
@@ -83,7 +83,7 @@ function UseCase() {
 									display: "inline-flex",
 									fontWeight: "600",
 									lineHeight: "18.23px",
-									background: "#236634",
+									background: theme.palette.background.main,
 									borderRadius: "24px",
 									mb: 2
 								}}

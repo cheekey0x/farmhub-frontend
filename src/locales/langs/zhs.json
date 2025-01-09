@@ -51,5 +51,20 @@
   "demo": {
     "title": "Chinese"
   },
-  "Platform_Setting": "平台设置"
+  "my_farm": "我的农场",
+  "land_transfer": "土地流转",
+  "manage_planting": "托管种植",
+  "finacial_service": "金融服务",
+  "env_monitoring": "环境监测",
+  "crop_storage": "作物收储",
+  "agri_supplies": "农资集采",
+  "contact_manage": "合同管理",
+  "receivable_payable": "应收应付",
+  "agri_academy": "农业学堂",
+  "messaging": "即时通讯",
+  "team_manage": "团队管理",
+  "basic_data": "基础数据",
+  "subscription": "订阅管理",
+  "system_setting": "系统设置",
+  "platform_Setting": "平台设置"
 }

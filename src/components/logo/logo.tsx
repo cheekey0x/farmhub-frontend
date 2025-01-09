@@ -25,7 +25,7 @@ const Logo = forwardRef<HTMLDivElement, LogoProps>(
 
     const logo = (
       <Stack
-        p={2.5}
+        // p={2.5}
         minHeight={50}
         direction="row"
         spacing={2}
@@ -55,14 +55,15 @@ const Logo = forwardRef<HTMLDivElement, LogoProps>(
                 sx={{ height: 36 }}
               />
               <Typography
-                variant="h5"
-                component="h2"
+                variant="h6"
+                component="h6"
+                fontWeight={400}
                 sx={{
-                  color: theme.palette.text.white,
+                  color: theme.palette.text.light,
                   ml: 1
                 }}
               >
-                FarmHub
+                飞鸟科技FarmHub智慧农业系统
               </Typography>
             </Box>
 

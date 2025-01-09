@@ -10,7 +10,7 @@ Dashboard.getLayout = function getLayout(page: React.ReactElement) {
     return (
         <DashboardLayout>
             <Head>
-                <title>Dashboard</title>
+                <title>Admin Setting</title>
             </Head>
             {page}
         </DashboardLayout>

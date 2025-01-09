@@ -8,9 +8,9 @@ import ListItemButton from "@mui/material/ListItemButton";
 import { RouterLink } from "src/routes/components";
 import { Stack, useTheme } from "@mui/material";
 import { NavItemProps, NavItemStateProps } from "../types";
+import Iconify from "src/components/iconify";
 
 // ----------------------------------------------------------------------
-
 // eslint-disable-next-line react/display-name
 const NavItem = forwardRef<HTMLDivElement, NavItemProps>(
   (
@@ -36,6 +36,8 @@ const NavItem = forwardRef<HTMLDivElement, NavItemProps>(
     const subItem = depth !== 1;
     const theme = useTheme();
 
+
+
     const renderContent = (
       <Stack flexDirection="row" alignItems="center">
         <StyledNavItem
@@ -45,22 +47,19 @@ const NavItem = forwardRef<HTMLDivElement, NavItemProps>(
           depth={depth}
           active={active}
           disabled={disabled}
-          sx={{
-            "&.active": {
-              background: "red"
-            }
-          }}
           {...other}
         >
           {!subItem && icon && (
-            <Box
-              component="span"
-              className="icon"
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-            >
-              {icon}
+            <Box component="span" className="icon-container">
+              <Box
+                component="span"
+                className="icon"
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+              >
+                {icon}
+              </Box>
             </Box>
           )}
 
@@ -79,7 +78,8 @@ const NavItem = forwardRef<HTMLDivElement, NavItemProps>(
                 flexDirection: "row",
                 justifyContent: "center",
                 alignItems: "center",
-                minWidth: 0
+                minWidth: 0,
+                flexGrow: 1
               }}
             >
               <Box component="span" className="label">
@@ -101,22 +101,17 @@ const NavItem = forwardRef<HTMLDivElement, NavItemProps>(
               {info}
             </Box>
           )}
+          {hasChild ? (
+            <Iconify
+              width={16}
+              className="arrow"
+              icon="eva:arrow-ios-forward-fill"
+            />
+          )
+            : (
+              <Box width={16} height={16}></Box>
+            )}
         </StyledNavItem>
-        {/* {active && (
-          <Box
-            sx={{
-              position: "absolute",
-              color: theme.palette.text.primary,
-              right: 0,
-              background: theme.palette.background.main,
-              transform: "translateY(-50 %)",
-              height: "32px",
-              width: "6px",
-              borderTopLeftRadius: "4px",
-              borderBottomLeftRadius: "4px"
-            }}
-          />
-        )} */}
       </Stack>
     );
 
@@ -174,7 +169,8 @@ const StyledNavItem = styled(ListItemButton, {
 })<NavItemStateProps>(({ active, open, depth, theme }) => {
   const subItem = depth !== 1;
 
-  const opened = open && !active;
+  // const opened = open && !active;
+  const opened = open;
 
   const deepSubItem = Number(depth) > 2;
 
@@ -190,21 +186,32 @@ const StyledNavItem = styled(ListItemButton, {
   const baseStyles = {
     item: {
       borderRadius: 12,
-      color: theme.palette.text.whitesecondary,
+      color: theme.palette.text.light,
       padding: theme.spacing(0.5, 1, 0.5, 1.5)
     },
-    icon: {
+    icon_container: {
       width: 26,
       height: 26,
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      borderRadius: 5,
       flexShrink: 0,
-      marginRight: theme.spacing(2)
+      marginRight: theme.spacing(1.6)
+    },
+    icon: {
+      width: 18,
+      height: 18,
+      // flexShrink: 0,
+      // marginRight: theme.spacing(2)
     },
     label: {
       ...noWrapStyles,
       ...theme.typography.body2,
       textTransform: "capitalize",
       fontWeight:
-        theme.typography[active ? "fontWeightSemiBold" : "fontWeightMedium"]
+        theme.typography[active ? "fontWeightSemiBold" : "fontWeightMedium"],
+      fontSize: 12
     },
     caption: {
       ...noWrapStyles,
@@ -225,6 +232,9 @@ const StyledNavItem = styled(ListItemButton, {
     // Root item
     ...(!subItem && {
       ...baseStyles.item,
+      "& .icon-container": {
+        ...baseStyles.icon_container
+      },
       "& .icon": {
         ...baseStyles.icon
       },
@@ -241,34 +251,63 @@ const StyledNavItem = styled(ListItemButton, {
         ...baseStyles.info
       },
       "& .arrow": {
-        ...baseStyles.arrow
+        ...baseStyles.arrow,
+        transform: "rotate(0deg)",
+        transition: "transform .2s ease"
       },
       ...(active && {
         color:
           theme.palette.mode === "light"
             ? theme.palette.text.white
             : theme.palette.text.main,
-        borderRadius: 8,
-        backgroundColor: theme.palette.action.hover
+        borderRadius: 5,
+        backgroundColor: "#E9FCF5",
+        "& .icon-container": {
+          ...baseStyles.icon_container,
+          backgroundColor: theme.palette.background.main
+        },
+        "& .icon": {
+          ...baseStyles.icon,
+          color: theme.palette.text.white
+        },
+        "& .sub-icon": {
+          display: "none"
+        },
+        "& .label": {
+          ...baseStyles.label,
+          color: theme.palette.background.main
+        },
+        "& .arrow": {
+          ...baseStyles.arrow,
+          color: theme.palette.background.main
+        },
       }),
 
       ...(opened && {
-        color: theme.palette.text.whitesecondary,
+        // color: theme.palette.text.whitesecondary,
         // backgroundColor: theme.palette.action.hover
+        "& .arrow": {
+          ...baseStyles.arrow,
+          transform: "rotate(90deg)",
+          transition: "transform .2s linear",
+          color: active ? theme.palette.text.main : theme.palette.text.white
+        },
       })
     }),
     justifyContent: "start",
     alignItems: "center",
 
     "&:hover": {
-      // backgroundColor: "#919eab14"
-      borderRadius: 8,
+      borderRadius: 5,
       backgroundColor: theme.palette.action.hover
     },
     // Sub item
     ...(subItem && {
       ...baseStyles.item,
       minHeight: 36,
+      "& .icon-container": {
+        ...baseStyles.icon_container,
+      },
       "& .icon": {
         ...baseStyles.icon
       },
@@ -284,6 +323,7 @@ const StyledNavItem = styled(ListItemButton, {
           height: 4,
           borderRadius: "50%",
           backgroundColor: theme.palette.text.disabled,
+          marginLeft: 12,
           transition: theme.transitions.create(["transform"], {
             duration: theme.transitions.duration.shorter
           }),
@@ -294,7 +334,8 @@ const StyledNavItem = styled(ListItemButton, {
         }
       },
       "& .label": {
-        ...baseStyles.label
+        ...baseStyles.label,
+        marginLeft: 18,
       },
       "& .caption": {
         ...baseStyles.caption
@@ -303,10 +344,22 @@ const StyledNavItem = styled(ListItemButton, {
         ...baseStyles.info
       },
       "& .arrow": {
-        ...baseStyles.arrow
+        ...baseStyles.arrow,
+        transform: "rotate(0deg)",
+        transition: "transform .2s linear"
       },
       ...(active && {
-        color: theme.palette.text.whitesecondary
+        color: theme.palette.text.whitesecondary,
+      }),
+      ...(opened && {
+        // color: theme.palette.text.whitesecondary,
+        // backgroundColor: theme.palette.action.hover
+        "& .arrow": {
+          ...baseStyles.arrow,
+          transform: "rotate(90deg)",
+          transition: "transform .2s linear",
+          color: depth == 1 ? theme.palette.text.main : theme.palette.text.white
+        },
       })
     }),
 

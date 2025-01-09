@@ -31,7 +31,6 @@ export function useTranslate() {
 
   const onChangeLang = useCallback(
     (newlang: string) => {
-      console.log('newlang', newlang)
       i18n.changeLanguage(newlang);
       settings.onChangeDirectionByLang(newlang);
     },

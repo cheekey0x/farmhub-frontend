@@ -11,9 +11,11 @@ import FormProvider, {
 import { NewBrandSchema, NewBrandDefaultValues } from "src/types/yup.schema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import LoadingButton from "@mui/lab/LoadingButton";
+import { useTheme } from "@mui/material";
 
 function Contact() {
   const defaultValues = useMemo(() => NewBrandDefaultValues, []);
+  const theme = useTheme();
   const methods = useForm({
     resolver: yupResolver(NewBrandSchema),
     defaultValues
@@ -32,16 +34,36 @@ function Contact() {
     }
   });
 
+  const commonProps = {
+    fullWidth: true,
+    defaultValue: "",
+    InputProps: {
+      sx: {
+        borderRadius: "24px",
+        color: "#fff",
+        backgroundColor: "#257055",
+        borderColor: "#fff",
+        "&:hover": {
+          borderColor: "#fff !important",
+        }
+      },
+    },
+    InputLabelProps: {
+      style: { color: '#fff' },
+    },
+  };
+
   return (
     <Box sx={{
-      backgroundImage: "url('/assets/images/landing/contactbg.png')",
-      backgroundRepeat: "no-repeat",
+      backgroundColor: theme.palette.background.main,
+      backgroundImage: "url('/assets/images/landing/pattern-bg.png')",
+      backgroundBlendMode: "overlay",
       backgroundSize: "cover",
-      borderRadius: "24px",
+      borderRadius: "18px",
       p: 6,
       // mt: 6
     }}>
-      <Typography variant="caption" color="#F8C32C">Lets Co-operate Together</Typography>
+      <Typography variant="caption" color="#fbc50b">Lets Co-operate Together</Typography>
       <Typography variant="h6" color="white" sx={{ mt: 1 }}>Contact Us Today</Typography>
       <Typography variant="caption" color="white">We will contact you within 24hrs via email thank you for contacting</Typography>
       <Container sx={{ px: "0 !important" }}>
@@ -49,110 +71,48 @@ function Contact() {
           <Grid container spacing={2} mt={3} mb={5}>
             <Grid item xs={12} md={6} sx={{ color: "#ffff" }}>
               <TextField
-                // variant="filled"
-                fullWidth
+                id="outlined-required"
                 required
-                id="outlined-required1"
                 label="Name"
-                defaultValue=""
-                InputProps={{
-                  sx:
-                  {
-                    borderRadius: "24px", color: "#fff",
-                    backgroundColor: "#62916E",
-                    borderColor: "#fff"
-                  },
-                }}
-                InputLabelProps={{
-                  style: { color: '#fff' },
-                }}
+                size="small"
+                {...commonProps}
               />
             </Grid>
 
             <Grid item xs={12} md={6} sx={{ color: "#ffff" }}>
               <TextField
-                // variant="filled"
-                fullWidth
                 required
                 id="outlined-required1"
                 label="Email"
-                defaultValue=""
-                InputProps={{
-                  sx:
-                  {
-                    borderRadius: "24px", color: "#fff",
-                    backgroundColor: "#62916E",
-                    borderColor: "#fff"
-                  },
-                }}
-                InputLabelProps={{
-                  style: { color: '#fff' },
-                }}
+                size="small"
+                {...commonProps}
               />
             </Grid>
             <Grid item xs={12} md={6} sx={{ color: "#ffff" }}>
               <TextField
-                // variant="filled"
-                fullWidth
-                // required
                 id="outlined-required1"
                 label="Phone"
-                defaultValue=""
-                InputProps={{
-                  sx:
-                  {
-                    borderRadius: "24px", color: "#fff",
-                    backgroundColor: "#62916E",
-                    borderColor: "#fff"
-                  },
-                }}
-                InputLabelProps={{
-                  style: { color: '#fff' },
-                }}
+                size="small"
+                {...commonProps}
               />
             </Grid>
             <Grid item xs={12} md={6} sx={{ color: "#ffff" }}>
               <TextField
-                // variant="filled"
-                fullWidth
-                // required
                 id="outlined-required1"
                 label="Address"
-                defaultValue=""
-                InputProps={{
-                  sx:
-                  {
-                    borderRadius: "24px", color: "#fff",
-                    backgroundColor: "#62916E",
-                    borderColor: "#fff"
-                  },
-                }}
-                InputLabelProps={{
-                  style: { color: '#fff' },
-                }}
+                size="small"
+                {...commonProps}
               />
             </Grid>
             <Grid item xs={12} md={12} sx={{ color: "#ffff" }}>
               <TextField
-                // variant="filled"
-                fullWidth
+                id="outlined-required1"
+                label="Message"
+                size="small"
+                {...commonProps}
                 required
                 multiline
                 rows={4}
-                id="outlined-required1"
-                label="Message"
-                defaultValue=""
-                InputProps={{
-                  sx:
-                  {
-                    borderRadius: "24px", color: "#fff",
-                    backgroundColor: "#62916E",
-                    borderColor: "#fff"
-                  },
-                }}
-                InputLabelProps={{
-                  style: { color: '#fff' },
-                }}
               />
             </Grid>
           </Grid>

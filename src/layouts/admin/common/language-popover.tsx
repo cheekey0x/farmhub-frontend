@@ -12,10 +12,11 @@ import CustomPopover, { usePopover } from 'src/components/custom-popover';
 import Typography from '@mui/material/Typography'
 import { Box } from '@mui/material';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-
+import { useTheme } from '@mui/material';
 // ----------------------------------------------------------------------
 
 export default function LanguagePopover() {
+    const theme = useTheme()
     const popover = usePopover();
 
     const { onChangeLang } = useTranslate();
@@ -44,13 +45,21 @@ export default function LanguagePopover() {
                 variants={varHover(1.05)}
                 onClick={popover.onOpen}
                 sx={{
-                    width: 90,
+                    width: 100,
                     height: 40,
+                    backgroundColor: "#22614A",
+                    borderRadius: 24
                 }}
             >
                 {/* <Iconify icon={currentLang.icon} sx={{ borderRadius: 0.65, width: 28 }} /> */}
-                <Typography variant="caption" color="initial" align="center" lineHeight={1}>{curLng?.label}</Typography>
-                <ArrowDropDownIcon />
+                <Typography
+                    variant="caption"
+                    align="center"
+                    lineHeight={1}
+                    ml={1}
+                    sx={{ color: theme.palette.text.light }}
+                >{curLng?.label}</Typography>
+                <ArrowDropDownIcon sx={{ color: theme.palette.text.light }} />
             </IconButton>
 
             <CustomPopover open={popover.open} onClose={popover.onClose} sx={{ width: 160 }}>

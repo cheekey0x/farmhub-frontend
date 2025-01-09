@@ -18,6 +18,10 @@ import { ToastContainer } from "src/components/toast";
 import ModalContainer from "src/components/modal";
 import SnackbarContainer from "src/components/snackbar";
 import { SettingsProvider } from "src/components/settings";
+import { useState, useEffect } from "react";
+import { SplashScreen } from "src/components/loading-screen";
+import { Router } from "next/router";
+import ProgressBar from "src/components/progress-bar";
 // ...................................
 
 type NextPageWithLayout = NextPage & {
@@ -35,7 +39,31 @@ const clientSideEmotionCache = createCache({ key: "css", prepend: true });
 export default function MyApp(props: MyAppProps) {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
   const getLayout = Component.getLayout ?? ((page: ReactNode) => page);
+  const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    // Function to handle route change start
+    const handleRouteChange = () => {
+      setLoading(true); // Show splash screen on route change
+    };
+
+    // Function to handle route change complete
+    const handleRouteComplete = () => {
+      setLoading(false); // Hide splash screen after route change
+    };
+
+    // Listen to route change events
+    Router.events.on('routeChangeStart', handleRouteChange);
+    Router.events.on('routeChangeComplete', handleRouteComplete);
+    Router.events.on('routeChangeError', handleRouteComplete);
+
+    // Cleanup the event listeners on unmount
+    return () => {
+      Router.events.off('routeChangeStart', handleRouteChange);
+      Router.events.off('routeChangeComplete', handleRouteComplete);
+      Router.events.off('routeChangeError', handleRouteComplete);
+    };
+  }, []);
   // ...................................
 
   return (
@@ -60,7 +88,10 @@ export default function MyApp(props: MyAppProps) {
               />
             </Head>
             <ThemeProvider>
-              <MotionLazy>{getLayout(<Component {...pageProps} />)}</MotionLazy>
+              <MotionLazy>
+                {/* {loading && <SplashScreen />} */}
+                {getLayout(<Component {...pageProps} />)}
+              </MotionLazy>
               <ToastContainer />
               <SnackbarContainer />
               <ModalContainer />

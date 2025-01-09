@@ -50,7 +50,7 @@ export default function NavList({ data, depth, slotProps }: NavListProps) {
         className={active ? "active" : ""}
         sx={{
           mb: `${slotProps?.gap}px`,
-          p: ".6rem 1.5rem ",
+          p: ".3rem ",
           ...(depth === 1 ? slotProps?.rootItem : slotProps?.subItem)
         }}
       />

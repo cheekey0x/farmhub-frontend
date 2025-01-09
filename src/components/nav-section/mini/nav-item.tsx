@@ -144,7 +144,7 @@ const StyledNavItem = styled(ListItemButton, {
     display: "block",
     overflow: "hidden",
     whiteSpace: "nowrap",
-    textOverflow: "ellipsis"
+    textOverflow: "ellipsis",
   } as const;
 
   const baseStyles = {
@@ -159,7 +159,7 @@ const StyledNavItem = styled(ListItemButton, {
     },
     label: {
       ...theme.typography.caption,
-      textTransform: "capitalize"
+      textTransform: "capitalize",
     },
     caption: {
       color: theme.palette.text.disabled

@@ -43,8 +43,8 @@ declare module "@mui/material/styles" {
 // https://nextjs.org/docs/basic-features/font-optimization#google-fonts
 
 export const typography = {
-  fontFamily: "Avenir, sans-serif",
-  fontSecondaryFamily: "Avenir, sans-serif",
+  // fontFamily: "Avenir, sans-serif",
+  // fontSecondaryFamily: "Avenir, sans-serif",
   fontWeightRegular: 400,
   fontWeightMedium: 500,
   fontWeightSemiBold: 600,

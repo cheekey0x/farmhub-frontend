@@ -1,12 +1,12 @@
 // ----------------------------------------------------------------------
 
 export const HEADER = {
-  H_MOBILE: 73,
-  H_DESKTOP: 73,
-  H_DESKTOP_OFFSET: 73
+  H_MOBILE: 65,
+  H_DESKTOP: 65,
+  H_DESKTOP_OFFSET: 65
 };
 
 export const NAV = {
-  W_VERTICAL: 200,
+  W_VERTICAL: 170,
   W_MINI: 88
 };

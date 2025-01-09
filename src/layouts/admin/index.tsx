@@ -4,6 +4,7 @@ import { useResponsive } from "src/hooks/use-responsive";
 import { useSettingsContext } from "src/components/settings";
 import Main from "./main";
 import Header from "./header";
+import Footer from "./footer";
 import NavMini from "./nav-mini";
 import NavVertical from "./nav-vertical";
 // ...................................

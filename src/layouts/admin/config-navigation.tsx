@@ -13,33 +13,22 @@ const icon = (name: string) => (
 );
 
 const ICONS = {
-  dashboard: icon("ic_dashboard"),
-  delegator: icon("delegator"),
-  project: icon("policy"),
-  account: icon("account"),
-  job: icon('ic_job'),
-  blog: icon('ic_blog'),
-  chat: icon('ic_chat'),
-  mail: icon('ic_mail'),
-  user: icon('ic_user'),
-  file: icon('ic_file'),
-  lock: icon('ic_lock'),
-  tour: icon('ic_tour'),
-  order: icon('ic_order'),
-  label: icon('ic_label'),
-  blank: icon('ic_blank'),
-  kanban: icon('ic_kanban'),
-  folder: icon('ic_folder'),
-  banking: icon('ic_banking'),
-  booking: icon('ic_booking'),
-  invoice: icon('ic_invoice'),
-  product: icon('ic_product'),
-  calendar: icon('ic_calendar'),
-  disabled: icon('ic_disabled'),
-  external: icon('ic_external'),
-  menuItem: icon('ic_menu_item'),
-  ecommerce: icon('ic_ecommerce'),
-  analytics: icon('ic_analytics')
+  farm: icon('ph_farm'),
+  land: icon('ph_land'),
+  plant: icon('ph_plant'),
+  financial: icon('ph_financial'),
+  env_monitor: icon('ph_env_monitor'),
+  crop: icon('ph_crop'),
+  supplier: icon('ph_agri_supplier'),
+  contract: icon('ph_contract'),
+  card_pay: icon('ph_card_pay'),
+  academy: icon('ph_academy'),
+  chat: icon('ph_chat'),
+  basic_data: icon('ph_basic_data'),
+  team: icon('ph_team'),
+  subscription: icon('ph_subscription'),
+  system: icon('ph_system_setting'),
+  platform: icon('ph_platform_setting')
 };
 // ...................................
 
@@ -55,32 +44,95 @@ export function useNavData() {
         subheader: "",
         items: [
           {
-            title: "dashboard",
+            title: t('my_farm'),
             path: paths.dashboard.root,
-            icon: ICONS.dashboard
+            icon: ICONS.farm,
           },
-          // {
-          //   title: "Delegators",
-          //   path: paths.delegators.root,
-          //   icon: ICONS.delegator
-          // },
-          // {
-          //   title: "Projects",
-          //   path: paths.projects.root,
-          //   icon: ICONS.project
-          // },
-          // {
-          //   title: "Account-setting",
-          //   path: paths.account.root,
-          //   icon: ICONS.account
-          // },
           {
-            title: t('Platform_Setting'),
+            title: t('land_transfer'),
+            path: "paths.platform.root",
+            icon: ICONS.land,
+          },
+          {
+            title: t('manage_planting'),
+            path: "paths.platform.root",
+            icon: ICONS.plant,
+          },
+          {
+            title: t('finacial_service'),
+            path: "paths.platform.root",
+            icon: ICONS.financial,
+          },
+          {
+            title: t('env_monitoring'),
+            path: "paths.platform.root",
+            icon: ICONS.env_monitor,
+          },
+          {
+            title: t('crop_storage'),
+            path: "paths.platform.root",
+            icon: ICONS.crop,
+          },
+          {
+            title: t('agri_supplies'),
+            path: "paths.platform.root",
+            icon: ICONS.supplier,
+          },
+          {
+            title: t('contact_manage'),
+            path: "paths.platform.root",
+            icon: ICONS.contract,
+          },
+          {
+            title: t('receivable_payable'),
+            path: "paths.platform.root",
+            icon: ICONS.card_pay,
+          },
+          {
+            title: t('agri_academy'),
+            path: "paths.platform.root",
+            icon: ICONS.academy,
+          },
+          {
+            title: t('messaging'),
+            path: "paths.platform.root",
+            icon: ICONS.chat,
+          },
+          {
+            title: t('team_manage'),
+            path: "paths.platform.root",
+            icon: ICONS.team,
+          },
+          {
+            title: t('basic_data'),
+            path: "paths.platform.root",
+            icon: ICONS.basic_data,
+          },
+          {
+            title: t('subscription'),
+            path: "paths.platform.root",
+            icon: ICONS.subscription,
+          },
+          {
+            title: t('system_setting'),
+            path: "paths.platform.root",
+            icon: ICONS.system,
+          },
+          {
+            title: t('platform_Setting'),
             path: paths.platform.root,
-            icon: ICONS.banking,
+            icon: ICONS.platform,
             children: [
-              { title: t('Admin'), path: paths.platform.admin },
-              { title: t('Login Page'), path: paths.platform.login },
+              {
+                title: t('Admin'),
+                path: paths.platform.admin,
+                children: [
+                  { title: t('Lvl 3-1'), path: paths.platform.admin },
+                  { title: t('Lvl 3-2'), path: "paths.platform.login1" },
+                  { title: t('Lvl 3-3'), path: "paths.platform.login2" },
+                ]
+              },
+              { title: t('Login Page'), path: "paths.platform.login3" },
               { title: t('Register'), path: paths.platform.register }
             ],
           },

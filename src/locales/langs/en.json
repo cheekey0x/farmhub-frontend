@@ -51,5 +51,20 @@
   "demo": {
     "title": "English"
   },
-  "Platform_Setting": "Platform Setting"
+  "my_farm": "My Farm",
+  "land_transfer": "Land Transfer",
+  "manage_planting": "Managed Planting",
+  "finacial_service": "Financial Services",
+  "env_monitoring": "Environment Monitoring",
+  "crop_storage": "Crop Storage",
+  "agri_supplies": "Agri Supplies",
+  "contact_manage": "Contract Management",
+  "receivable_payable": "Receivables & Payables",
+  "agri_academy": "Agri Academy",
+  "messaging": "Messaging",
+  "team_manage": "Team Management",
+  "basic_data": "Basic Data",
+  "subscription": "Subscription",
+  "system_setting": "System Settings",
+  "platform_Setting": "Platform Setting"
 }

@@ -1,15 +1,18 @@
 import { useEffect } from "react";
-import { Box, Stack, Drawer, Divider } from "@mui/material";
+import { Box, Stack, Drawer, Divider, useTheme } from "@mui/material";
 import { usePathname } from "src/routes/hooks";
 import { useResponsive } from "src/hooks/use-responsive";
 import Logo from "src/components/logo";
+import NavUser from "./nav-user";
 import { NavSectionVertical } from "src/components/nav-section";
 import dynamic from "next/dynamic";
 import { useNavData } from "./config-navigation";
 import NavToggleButton from "./common/nav-toggle-button";
 import { NAV } from "../config-layout";
+import { HEADER } from "../config-layout";
 import NavTeam from "./nav-team";
 import { useSettingsContext } from "src/components/settings";
+import Footer from "./footer";
 
 const Scrollbar = dynamic(() => import("src/components/scrollbar"), {
   ssr: false
@@ -24,6 +27,7 @@ type Props = {
 
 export default function NavVertical({ openNav, onCloseNav }: Props) {
   const settings = useSettingsContext();
+  const theme = useTheme();
 
   // ...................................
   const pathname = usePathname();
@@ -42,30 +46,30 @@ export default function NavVertical({ openNav, onCloseNav }: Props) {
   const renderContent = (
     <Scrollbar
       sx={{
-        height: 1,
+        // height: 1,
+        height: `calc(100% - ${HEADER.H_DESKTOP}px)`,
+        marginTop: `${HEADER.H_DESKTOP}px`,
         "& .simplebar-content": {
           display: "flex",
           flexDirection: "column"
         },
-        backgroundColor: settings.themeMode === "light" ? "#006666" : "#12181f",
-        borderTopRightRadius: "24px",
-        borderBottomRightRadius: "24px"
+        backgroundColor: settings.themeMode === "light" ? theme.palette.background.main : "#12181f",
       }}
     >
-      <Logo />
+      {/* <Logo /> */}
       {/* <Divider variant="fullWidth" sx={{ borderStyle: "dashed" }} /> */}
-
+      {/* <NavUser /> */}
       <NavSectionVertical
         data={navData}
         slotProps={{
-          currentRole: "admin"
+          currentRole: "admin",
+          gap: 4
         }}
         sx={{
-          mt: 3
+          mt: 2
         }}
       />
       {/* <Divider variant="middle" sx={{ my: 3, borderStyle: "dashed" }} /> */}
-      {/* <NavTeam /> */}
       <Box sx={{ flexGrow: 1 }} />
     </Scrollbar>
   );
@@ -78,7 +82,7 @@ export default function NavVertical({ openNav, onCloseNav }: Props) {
         width: { lg: NAV.W_VERTICAL },
       }}
     >
-      <NavToggleButton />
+      {/* <NavToggleButton /> */}
 
       {lgUp ? (
         <Stack
@@ -90,6 +94,7 @@ export default function NavVertical({ openNav, onCloseNav }: Props) {
           }}
         >
           {renderContent}
+          <Footer />
         </Stack>
       ) : (
         <Drawer

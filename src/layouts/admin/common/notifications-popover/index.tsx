@@ -25,7 +25,7 @@ import Scrollbar from 'src/components/scrollbar';
 import { varHover } from 'src/components/animate';
 
 import NotificationItem from './notification-item';
-
+import { useTheme } from '@mui/material';
 // ----------------------------------------------------------------------
 
 const TABS = [
@@ -49,6 +49,7 @@ const TABS = [
 // ----------------------------------------------------------------------
 
 export default function NotificationsPopover() {
+  const theme = useTheme()
   const drawer = useBoolean();
 
   const smUp = useResponsive('up', 'sm');
@@ -141,7 +142,11 @@ export default function NotificationsPopover() {
         whileTap="tap"
         whileHover="hover"
         variants={varHover(1.05)}
-        color={drawer.value ? 'primary' : 'default'}
+        // color={drawer.value ? 'default' : 'default'}
+        sx={{
+          color: theme.palette.text.light,
+          backgroundColor: "#22614A"
+        }}
       // onClick={drawer.onTrue}
       >
         <Badge badgeContent={totalUnRead} color="error">

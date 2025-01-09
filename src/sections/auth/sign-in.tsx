@@ -73,9 +73,30 @@ export default function SignIn() {
       //   snackbar.snackbarSuccess("Login success!");
       //   router.push("/app");
       // }
+
       const { userEmail, password } = data
       if (userEmail === "dalianjx@163.com" && password === "wn719772") {
-        // console.log(data)
+        const loginRes = {
+          user: {
+            _id: "41b7e4d4fdd5136fdda44f9920fee8c1aa822613",
+            name: "Jack Lin",
+            userEmail: "dalianjx@163.com",
+            avatar: ""
+          },
+          auth: {
+            accessToken: "a3c31346b94036391ee90f500524b56f41f01ca0",
+            refreshToken: "refreshToken"
+          }
+        }
+        setAccessToken(loginRes.auth.accessToken);
+        setRefreshToken(loginRes.auth.refreshToken);
+        await signIn("EmailCredentials", {
+          redirect: false,
+          userId: loginRes.user._id,
+          name: loginRes.user.name,
+          email: loginRes.user.userEmail,
+          avatar: loginRes.user.avatar
+        });
         snackbar.snackbarSuccess("Login success!");
         router.push("/app");
       } else {
@@ -152,7 +173,7 @@ export default function SignIn() {
             </Stack>
           </Stack>
         </Stack>
-        <Stack gap={5}>
+        <Stack gap={2}>
           <Stack
             gap={1.5}
             sx={{
@@ -215,7 +236,10 @@ export default function SignIn() {
             />
           </Stack>
 
-          <Stack direction="column" spacing={2}>
+          <Stack direction="column" spacing={6}>
+            <Typography variant="caption" mx={1} sx={{ cursor: "pointer" }}>
+              Forgot Password?
+            </Typography>
             <LoadingButton
               fullWidth
               type="submit"

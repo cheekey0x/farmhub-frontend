@@ -59,35 +59,46 @@ export default function Header({ onOpenNav }: Props) {
         flexGrow={1}
         direction="row"
         alignItems="center"
-        justifyContent="flex-end"
-        spacing={{ xs: 1, sm: 2 }}
+        justifyContent="space-between"
       >
-        <NotificationsPopover />
+        <Logo />
+        <Stack
+          direction="row"
+          alignItems="cener"
+          spacing={{ xs: 1, sm: 1 }}
+        >
+          <NotificationsPopover />
 
-        <AccountPopover />
+          <AccountPopover />
 
-        <LanguagePopover />
+          <LanguagePopover />
+
+        </Stack>
       </Stack>
     </>
   );
+
+
 
   return (
     <AppBar
       sx={{
         height: HEADER.H_MOBILE,
         zIndex: theme.zIndex.appBar + 1,
-        ...bgBlur({
-          color: theme.palette.background.default,
-        }),
+        // ...bgBlur({
+        //   // color: theme.palette.background.default,
+        //   color: "#1F4E3D",
+        // }),
+        backgroundColor: "#1F4E3D",
         transition: theme.transitions.create(['height'], {
           duration: theme.transitions.duration.shorter,
         }),
         ...(lgUp && {
-          width: `calc(100% - ${NAV.W_VERTICAL + 1}px)`,
+          // width: `calc(100% - ${NAV.W_VERTICAL + 1}px)`,
           height: HEADER.H_DESKTOP,
-          ...(offsetTop && {
-            height: HEADER.H_DESKTOP_OFFSET,
-          }),
+          // ...(offsetTop && {
+          //   height: HEADER.H_DESKTOP_OFFSET,
+          // }),
           ...(isNavHorizontal && {
             width: 1,
             bgcolor: 'background.default',
@@ -103,7 +114,7 @@ export default function Header({ onOpenNav }: Props) {
       <Toolbar
         sx={{
           height: 1,
-          px: { lg: 5 },
+          px: { lg: 2 },
         }}
       >
         {renderContent}

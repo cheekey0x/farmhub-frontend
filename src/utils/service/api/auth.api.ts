@@ -60,11 +60,19 @@ export const updateToken: (data: {
   }
 };
 
-export const logOut: () => Promise<{ message: string }> = async () => {
+// export const logOut: () => Promise<{ message: string }> = async () => {
+//   try {
+//     removeAllTokens();
+//     const result = await axiosPost(BACKEND_ENDPOINTS.auth.logout);
+//     return result;
+//   } catch (err) {
+//     console.error(err);
+//     throw err;
+//   }
+// };
+export const logOut = async () => {
   try {
     removeAllTokens();
-    const result = await axiosPost(BACKEND_ENDPOINTS.auth.logout);
-    return result;
   } catch (err) {
     console.error(err);
     throw err;

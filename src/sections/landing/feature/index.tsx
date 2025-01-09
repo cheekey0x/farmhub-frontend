@@ -53,7 +53,11 @@ function Feature() {
       // gap={2}
       // pb={30}
       sx={{
-        backgroundColor: "#F3F0EB"
+        backgroundColor: "#F3F0EB",
+        backgroundImage: "url('/assets/images/landing/contact-pattern-bg.png')",
+        backgroundBlendMode: "overlay",
+        backgroundSize: "cover",
+        borderRadius: "24px"
       }}
     >
       <Box sx={{
@@ -105,7 +109,7 @@ function Feature() {
                 sx={{ width: "50px", height: "50px" }}
               />
             </Stack>
-            <Typography variant="body1" className="font-clash" letterSpacing={2} py={1}>
+            <Typography variant="body1" className="font-clash" letterSpacing={1.5} py={1}>
               {feature.name}
             </Typography>
             <Typography variant="caption" textAlign="center">
@@ -113,108 +117,7 @@ function Feature() {
             </Typography>
           </Stack>
         ))}
-
       </Stack>
-      {/* <Grid container spacing={2} component={MotionViewport}>
-        <Grid item xs={12} md={6} component={m.div} variants={varFade().inLeft}>
-          <Stack
-            justifyContent="center"
-            alignItems="center"
-            sx={{
-              width: "100%",
-              height: "100%"
-            }}
-          >
-            <Image src={acitvePartner.logo} alt="staking" p={5} width={250} />
-          </Stack>
-        </Grid>
-        <Grid
-          item
-          xs={12}
-          md={6}
-          component={m.div}
-          variants={varFade().inRight}
-        >
-          <Stack
-            flexDirection="column"
-            justifyContent="center"
-            alignItems="center"
-            p={5}
-            sx={{
-              background: "#9e9e9e17",
-              borderRadius: 3,
-              width: "100%"
-            }}
-          >
-            <Stack
-              spacing={3}
-              flexDirection="column"
-              justifyContent="flex-start"
-              alignItems="center"
-            >
-              <Typography
-                variant="h4"
-                letterSpacing={2}
-                textTransform="uppercase"
-                className="font-clash"
-                width="100%"
-              >
-                {acitvePartner.name}
-              </Typography>
-              <Stack spacing={2} height={200} sx={{ overflowY: "auto" }}>
-                <Typography variant="body2" letterSpacing={1}>
-                  {acitvePartner.description}
-                </Typography>
-              </Stack>
-            </Stack>
-          </Stack>
-        </Grid>
-      </Grid>
-
-      <Grid container spacing={2} component={MotionViewport}>
-        {CPartners.map((partnerItem) => (
-          <Grid item xs={12} md={6} component={m.div} key={partnerItem.name}>
-            <ButtonBase
-              onClick={() => setActivePartner(partnerItem)}
-              component={m.div}
-              whileTap="tap"
-              whileHover="hover"
-              disableTouchRipple
-              sx={{
-                background: "#9e9e9e17",
-                cursor: "pointer",
-                borderRadius: 3,
-                p: 5,
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                border:
-                  acitvePartner === partnerItem
-                    ? "6px solid #4A4A4A"
-                    : "6px solid #12181f75",
-                width: "100%",
-                height: "100%",
-                transition: "border .6s",
-                boxShadow:
-                  "0px 5.64px 5.64px 0px #00000040, 0px 2.82px 10.01px 0px #00000040 inset",
-                "&:hover": {
-                  boxShadow:
-                    "0px 2.82px 10.01px 0px 00000040 inset, 0px 5.64px 5.64px 0px #00000040",
-                  border: "6px solid #4A4A4A",
-                  background: "#9e9e9e17 !important"
-                }
-              }}
-            >
-              <Image
-                disabledEffect
-                src={partnerItem.overview_logo}
-                alt="staking"
-                sx={{ zIndex: -1 }}
-              />
-            </ButtonBase>
-          </Grid>
-        ))}
-      </Grid> */}
     </Stack>
   );
 }

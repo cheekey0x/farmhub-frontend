@@ -13,6 +13,7 @@ export type ColorSchema =
 declare module "@mui/material/styles/createPalette" {
   interface TypeText {
     main: string;
+    light: string;
     primary: string;
     secondary: string;
     disabled: string;
@@ -150,7 +151,8 @@ export function palette(mode: "light" | "dark") {
   const light = {
     mode: "light",
     text: {
-      main: "#5957c5",
+      main: "#285A48",
+      light: "#E4E4E4",
       primary: grey[800],
       secondary: grey[600],
       disabled: grey[500],
@@ -162,7 +164,7 @@ export function palette(mode: "light" | "dark") {
       paper: "#FFFFFF",
       default: "#FFFFFF",
       neutral: grey[200],
-      main: "#5957c5",
+      main: "#285A48",
       light: "#5957c5bf",
       lighter: "#5957c54d",
       standard: "#fff",

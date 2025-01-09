@@ -11,6 +11,7 @@ import { varHover } from "src/components/animate";
 import { m } from "framer-motion";
 import CustomPopover, { usePopover } from 'src/components/custom-popover';
 import MenuItem from '@mui/material/MenuItem';
+import { useTheme } from "@mui/material";
 
 const CSocialLinks = [
   {
@@ -33,6 +34,8 @@ const CSocialLinks = [
 
 export default function LandingFooter() {
   const popover = usePopover();
+  const theme = useTheme();
+
   const handleMarkComplete = () => {
     popover.onClose();
     console.info('MARK COMPLETE',);
@@ -54,7 +57,16 @@ export default function LandingFooter() {
   };
 
   return (
-    <Stack mt={5} py={2} px={8} sx={{ backgroundColor: "#236634" }}>
+    <Stack
+      mt={5}
+      py={2}
+      px={8}
+      sx={{
+        backgroundColor: theme.palette.background.main,
+        backgroundImage: "url('/assets/images/landing/pattern-bg.png')",
+        backgroundBlendMode: "overlay",
+        backgroundSize: "cover",
+      }}>
       {/* <Divider sx={{ my: 2 }} /> */}
       <Stack
         flexDirection="row"
