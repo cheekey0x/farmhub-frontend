@@ -68,7 +68,7 @@ export default function TableHeadCustom({
             key={headCell.id}
             align={headCell.align || "left"}
             sortDirection={orderBy === headCell.order ? order : false}
-            sx={{ width: headCell.width, minWidth: headCell.minWidth }}
+            sx={{ width: headCell.width, minWidth: headCell.minWidth, fontSize: 12 }}
           >
             {onSort ? (
               <TableSortLabel

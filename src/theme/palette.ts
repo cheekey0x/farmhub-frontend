@@ -31,6 +31,7 @@ declare module "@mui/material/styles/createPalette" {
     standard: string;
     filter: string;
     border: string;
+    refresh: string;
   }
   interface SimplePaletteColorOptions {
     lighter: string;
@@ -78,7 +79,7 @@ export const secondary = {
 
 export const info = {
   lighter: "#CAFDF5",
-  light: "#61F3F3",
+  light: "#00ACAC",
   main: "#00B8D9",
   dark: "#006C9C",
   darker: "#003768",
@@ -169,7 +170,8 @@ export function palette(mode: "light" | "dark") {
       lighter: "#5957c54d",
       standard: "#fff",
       filter: "brightness(0)",
-      border: "#0000001F"
+      border: "#0000001F",
+      refresh: "#00ACAC"
     },
     action: {
       ...base.action,

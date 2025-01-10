@@ -52,11 +52,27 @@ export function useNavData() {
             title: t('land_transfer'),
             path: "paths.platform.root",
             icon: ICONS.land,
+            children: [
+              { title: t('land_transfer_dashboard'), path: "paths.platform.land_transfer_dashboard" },
+              { title: t('land_transfer_primary'), path: "paths.platform.land_transfer_primary" },
+              { title: t('land_transfer_secondary'), path: "paths.platform.land_transfer_secondary" },
+            ],
           },
           {
             title: t('manage_planting'),
             path: "paths.platform.root",
             icon: ICONS.plant,
+            children: [
+              {
+                title: t('planting_dashboard'),
+                path: "paths.platform.planting_dashboard",
+              },
+              { title: t('planting_land_ledger'), path: "paths.platform.planting_land_ledger" },
+              { title: t('planting_geo_mapping'), path: "paths.platform.planting_geo_mapping" },
+              { title: t('planting_history_record'), path: "paths.platform.planting_history_record" },
+              { title: t('plating_contracts'), path: "paths.platform.plating_contracts" },
+              { title: t('plating_acceptance'), path: "paths.platform.plating_acceptance" }
+            ],
           },
           {
             title: t('finacial_service'),
@@ -107,6 +123,46 @@ export function useNavData() {
             title: t('basic_data'),
             path: "paths.platform.root",
             icon: ICONS.basic_data,
+            children: [
+              { title: t('basic_land_operator'), path: "paths.platform.basic_land_operator" },
+              { title: t('basic_agri_coop'), path: "paths.platform.basic_agri_coop" },
+              { title: t('basic_planted_enterprises'), path: "paths.platform.basic_planted_enterprises" },
+              { title: t('basic_divisions'), path: "paths.platform.basic_divisions" },
+              {
+                title: t('basic_land'),
+                path: "paths.platform.basic_land",
+                children: [
+                  { title: t('basic_land_property'), path: "paths.platform.basic_land_property" },
+                  { title: t('basic_land_types'), path: "paths.platform.basic_land_types" },
+                ],
+              },
+              {
+                title: t('basic_farm'),
+                path: "paths.platform.basic_farm",
+                children: [
+                  { title: t('basic_farm_seeds'), path: "paths.platform.basic_farm_seeds" },
+                  { title: t('basic_farm_fertilizers'), path: "paths.platform.basic_farm_fertilizers" },
+                  { title: t('basic_farm_pesticides'), path: "paths.platform.basic_farm_pesticides" },
+                  { title: t('basic_farm_planting_methods'), path: "paths.platform.basic_farm_planting_methods" },
+                  { title: t('basic_farm_irrigation_methods'), path: "paths.platform.basic_farm_irrigation_methods" },
+                  { title: t('basic_farm_tillage_operations'), path: "paths.platform.basic_farm_tillage_operations" },
+                  { title: t('basic_farm_sowing_operations'), path: "paths.platform.basic_farm_sowing_operations" },
+                  { title: t('basic_farm_fertilizing_operations'), path: "paths.platform.basic_farm_fertilizing_operations" },
+                  { title: t('basic_farm_weed_pest_control'), path: "paths.platform.basic_farm_weed_pest_control" },
+                  { title: t('basic_farm_harvesting_operations'), path: "paths.platform.basic_farm_harvesting_operations" },
+                ],
+              },
+              {
+                title:
+                  t('basic_finance'),
+                path: "paths.platform.basic_finance",
+                children: [
+                  { title: t('basic_finance_payment'), path: "paths.platform.basic_finance_payment" },
+                  { title: t('basic_finance_insurance_types'), path: "paths.platform.basic_finance_insurance_types" },
+                  { title: t('basic_finance_service_fee_account'), path: "paths.platform.basic_finance_service_fee_account" },
+                ],
+              },
+            ],
           },
           {
             title: t('subscription'),
@@ -124,7 +180,7 @@ export function useNavData() {
             icon: ICONS.platform,
             children: [
               {
-                title: t('Admin'),
+                title: t('admin_setting'),
                 path: paths.platform.admin,
                 children: [
                   { title: t('Lvl 3-1'), path: paths.platform.admin },
@@ -132,8 +188,10 @@ export function useNavData() {
                   { title: t('Lvl 3-3'), path: "paths.platform.login2" },
                 ]
               },
-              { title: t('Login Page'), path: "paths.platform.login3" },
-              { title: t('Register'), path: paths.platform.register }
+              { title: t('register_company'), path: "paths.platform.register" },
+              { title: t('subscription'), path: "paths.platform.subscription" },
+              { title: t('firstpage_settting'), path: "paths.platform.firstpage_settting" },
+              { title: t('sms_api_setting'), path: "paths.platform.sms_api_setting" }
             ],
           },
         ]

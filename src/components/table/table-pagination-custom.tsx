@@ -28,7 +28,8 @@ export default function TablePaginationCustom({
         component="div"
         {...other}
         sx={{
-          borderTopColor: "transparent"
+          borderTopColor: "transparent",
+          fontSize: 12
         }}
       />
 

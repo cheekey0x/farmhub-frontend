@@ -54,52 +54,33 @@ export default function UserTableToolbar({
         <>
             <Stack
                 spacing={2}
-                alignItems={{ xs: 'flex-end', md: 'center' }}
+                // alignItems={{ xs: 'flex-end', md: 'center' }}
                 direction={{
                     xs: 'column',
                     md: 'row',
                 }}
-                sx={{
-                    p: 2.5,
-                    pr: { xs: 2.5, md: 1 },
-                }}
+            // sx={{
+            //     p: 2.5,
+            //     pr: { xs: 2.5, md: 1 },
+            // }}
             >
-                <FormControl
+
+
+                <Stack
+                    direction="row"
+                    alignItems="center"
                     sx={{
                         flexShrink: 0,
-                        width: { xs: 1, md: 200 },
+                        width: { xs: 1, md: 300 },
                     }}
                 >
-                    <InputLabel>Role</InputLabel>
-
-                    <Select
-                        multiple
-                        size='small'
-                        value={filters.role}
-                        onChange={handleFilterRole}
-                        input={<OutlinedInput label="Role" />}
-                        renderValue={(selected) => selected.map((value) => value).join(', ')}
-                        MenuProps={{
-                            PaperProps: {
-                                sx: { maxHeight: 240 },
-                            },
-                        }}
-                    >
-                        {roleOptions.map((option) => (
-                            <MenuItem key={option} value={option}>
-                                <Checkbox disableRipple size="small" checked={filters.role.includes(option)} />
-                                {option}
-                            </MenuItem>
-                        ))}
-                    </Select>
-                </FormControl>
-
-                <Stack direction="row" alignItems="center" spacing={2} flexGrow={1} sx={{ width: 1 }}>
                     <TextField
                         fullWidth
                         value={filters.name}
+                        variant='filled'
                         size='small'
-                        onChange={handleFilterName}
+                        hiddenLabel
+                        // onChange={handleFilterName}
                         placeholder="Search..."
                         InputProps={{
                             startAdornment: (
@@ -108,12 +89,50 @@ export default function UserTableToolbar({
                                 </InputAdornment>
                             ),
                         }}
+                        sx={{
+                            '& .MuiInputBase-root': {
+                                height: '39px', // Set the height
+                            },
+                        }}
                     />
 
-                    <IconButton onClick={popover.onOpen}>
+                    {/* <IconButton onClick={popover.onOpen}>
                         <Iconify icon="eva:more-vertical-fill" />
-                    </IconButton>
+                    </IconButton> */}
                 </Stack>
+
+                <FormControl
+                    sx={{
+                        flexShrink: 0,
+                        width: { xs: 1, md: 200 },
+                    }}
+                >
+                    {/* <InputLabel>Role</InputLabel> */}
+
+                    <Select
+                        hiddenLabel
+                        multiple
+                        size='small'
+                        value={filters.role}
+                        variant='filled'
+
+                        // onChange={handleFilterRole}
+                        // input={<OutlinedInput label="Role" />}
+                        renderValue={(selected) => selected.map((value) => value).join(', ')}
+                        MenuProps={{
+                            PaperProps: {
+                                sx: { maxHeight: 240 },
+                            },
+                        }}
+                    >
+                        {/* {roleOptions.map((option) => (
+                            <MenuItem key={option} value={option}>
+                                <Checkbox disableRipple size="small" checked={filters.role.includes(option)} />
+                                {option}
+                            </MenuItem>
+                        ))} */}
+                    </Select>
+                </FormControl>
             </Stack>
 
             <CustomPopover

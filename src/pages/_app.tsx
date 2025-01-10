@@ -77,7 +77,7 @@ export default function MyApp(props: MyAppProps) {
               themeContrast: "default", // 'default' | 'bold'
               themeLayout: "vertical", // 'vertical' | 'horizontal' | 'mini'
               themeColorPresets: "default", // 'default' | 'cyan' | 'purple' | 'blue' | 'orange' | 'red'
-              themeStretch: false,
+              themeStretch: true,
               editing: false
             }}
           >

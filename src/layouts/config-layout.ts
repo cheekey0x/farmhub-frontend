@@ -8,5 +8,5 @@ export const HEADER = {
 
 export const NAV = {
   W_VERTICAL: 170,
-  W_MINI: 88
+  W_MINI: 70
 };

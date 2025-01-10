@@ -9,11 +9,13 @@ import { useActiveLink } from "src/routes/hooks/use-active-link";
 import NavItem from "./nav-item";
 import { NavListProps, NavSubListProps } from "../types";
 import { useSettingsContext } from "src/components/settings";
+import { useTheme } from "@mui/material";
 
 // ----------------------------------------------------------------------
 
 export default function NavList({ data, depth, slotProps }: NavListProps) {
   const settings = useSettingsContext();
+  const theme = useTheme();
 
   const navRef = useRef<HTMLDivElement | null>(null);
 
@@ -80,8 +82,8 @@ export default function NavList({ data, depth, slotProps }: NavListProps) {
               sx: {
                 mt: 0.5,
                 minWidth: 160,
-                backgroundColor: settings.themeMode === "light" ? "#006666" : "#12181f",
-
+                borderRadius: 0.5,
+                backgroundColor: settings.themeMode === "light" ? theme.palette.background.main : "#12181f",
                 ...(openMenu && {
                   pointerEvents: "auto"
                 })
@@ -91,6 +93,7 @@ export default function NavList({ data, depth, slotProps }: NavListProps) {
           sx={{
             pointerEvents: "none"
           }}
+          data-inert={openMenu ? undefined : true}
         >
           <NavSubList
             data={data.children}
@@ -108,7 +111,7 @@ export default function NavList({ data, depth, slotProps }: NavListProps) {
 
 function NavSubList({ data, depth, slotProps }: NavSubListProps) {
   return (
-    <Stack spacing={0.5}>
+    <Stack>
       {data.map((list) => (
         <NavList
           key={list.title}

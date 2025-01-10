@@ -46,14 +46,30 @@ const NavItem = forwardRef<HTMLDivElement, NavItemProps>(
         active={active}
         disabled={disabled}
         {...other}
-        sx={{
-          py: 1
-        }}
+      // sx={{
+      //   py: 1
+      // }}
       >
         {icon && (
+          <Box component="span" className="icon-container">
+            <Box
+              component="span"
+              className="icon"
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+            >
+              {icon}
+            </Box>
+          </Box>
+        )}
+
+        {subItem && icon ? (
           <Box component="span" className="icon">
             {icon}
           </Box>
+        ) : (
+          <Box component="span" className="sub-icon" />
         )}
 
         {title && (
@@ -66,12 +82,6 @@ const NavItem = forwardRef<HTMLDivElement, NavItemProps>(
           <Tooltip title={caption} arrow placement="right">
             <Iconify width={16} icon="eva:info-outline" className="caption" />
           </Tooltip>
-        )}
-
-        {info && subItem && (
-          <Box component="span" className="info">
-            {info}
-          </Box>
         )}
 
         {hasChild && (
@@ -111,6 +121,7 @@ const NavItem = forwardRef<HTMLDivElement, NavItemProps>(
     return (
       <Link
         component={RouterLink}
+        // href={!hasChild ? path : ""}
         href={path}
         color="inherit"
         underline="none"
@@ -150,19 +161,35 @@ const StyledNavItem = styled(ListItemButton, {
   const baseStyles = {
     item: {
       borderRadius: 6,
-      color: theme.palette.text.whitesecondary
+      color: theme.palette.text.light,
+      padding: theme.spacing(0.5, 1, 0.5, 1.5)
     },
-    icon: {
+    icon_container: {
       width: 26,
       height: 26,
-      flexShrink: 0
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      borderRadius: 4,
+      flexShrink: 0,
+      // marginRight: theme.spacing(1.6)
+    },
+    icon: {
+      width: 18,
+      height: 18,
+      // flexShrink: 0
     },
     label: {
-      ...theme.typography.caption,
+      // ...theme.typography.caption,
       textTransform: "capitalize",
+      fontSize: 11
     },
     caption: {
       color: theme.palette.text.disabled
+    },
+    arrow: {
+      flexShrink: 0,
+      // marginLeft: theme.spacing(0.75)
     }
   } as const;
 
@@ -170,21 +197,17 @@ const StyledNavItem = styled(ListItemButton, {
     // Root item
     ...(!subItem && {
       ...baseStyles.item,
-      fontSize: 8,
-      minHeight: 56,
-      textAlign: "center",
-      flexDirection: "column",
-      justifyContent: "center",
-      padding: theme.spacing(0.5),
-      margin: theme.spacing(0, 0.5),
       // fontWeight: theme.typography.fontWeightSemiBold,
+      "& .icon-container": {
+        ...baseStyles.icon_container
+      },
       "& .icon": {
         ...baseStyles.icon
       },
+
       "& .label": {
-        ...noWrapStyles,
-        ...baseStyles.label,
-        marginTop: theme.spacing(0.5),
+        display: "none"
+        // marginTop: theme.spacing(0.5),
       },
       "& .caption": {
         ...baseStyles.caption,
@@ -193,15 +216,33 @@ const StyledNavItem = styled(ListItemButton, {
         position: "absolute",
       },
       "& .arrow": {
-        top: 11,
-        right: 6,
-        position: "absolute"
+        ...baseStyles.arrow,
+        transform: "rotate(0deg)",
+        transition: "transform .2s ease"
       },
       ...(active && {
         color:
           theme.palette.mode === "light"
             ? theme.palette.text.white
-            : theme.palette.text.main
+            : theme.palette.text.main,
+        "& .icon-container": {
+          ...baseStyles.icon_container,
+          backgroundColor: theme.palette.background.default
+        },
+        "& .icon": {
+          ...baseStyles.icon,
+          color: theme.palette.text.main
+        },
+        "& .sub-icon": {
+          display: "none"
+        },
+        "& .label": {
+          display: "none"
+        },
+        "& .arrow": {
+          ...baseStyles.arrow,
+          color: theme.palette.text.white
+        },
       }),
       ...(opened && {
         color:
@@ -224,16 +265,19 @@ const StyledNavItem = styled(ListItemButton, {
     ...(subItem && {
       ...baseStyles.item,
       ...theme.typography.body2,
-      minHeight: 34,
+      minHeight: 28,
       padding: theme.spacing(0, 1),
       // fontWeight: theme.typography.fontWeightMedium,
+      "& .icon-container": {
+        ...baseStyles.icon_container,
+      },
       "& .icon": {
         ...baseStyles.icon,
         marginRight: theme.spacing(1),
       },
       "& .label": {
         ...baseStyles.label,
-        flexGrow: 1
+        flexGrow: 1,
       },
       "& .caption": {
         ...baseStyles.caption,
@@ -243,17 +287,76 @@ const StyledNavItem = styled(ListItemButton, {
         display: "inline-flex",
         marginLeft: theme.spacing(0.75)
       },
+      "& .sub-icon": {
+        ...baseStyles.icon,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+
+        "&:before": {
+          content: '""',
+          width: 4,
+          height: 4,
+          borderRadius: "50%",
+          backgroundColor: theme.palette.text.disabled,
+          marginRight: 12,
+          transition: theme.transitions.create(["transform"], {
+            duration: theme.transitions.duration.shorter
+          }),
+          ...(active && {
+            transform: "scale(2)",
+            backgroundColor: theme.palette.text.whitesecondary,
+          })
+        }
+      },
       "& .arrow": {
         marginLeft: theme.spacing(0.75),
         marginRight: theme.spacing(-0.5)
       },
       ...(active && {
         color: theme.palette.text.primary,
-        backgroundColor: theme.palette.action.selected
+        "& .icon-container": {
+          ...baseStyles.icon_container,
+          backgroundColor: theme.palette.background.main
+        },
+        "& .icon": {
+          ...baseStyles.icon,
+          color: theme.palette.text.white
+        },
+        "& .sub-icon": {
+          ...baseStyles.icon,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+
+          "&:before": {
+            content: '""',
+            width: 4,
+            height: 4,
+            borderRadius: "50%",
+            marginRight: 12,
+            transition: theme.transitions.create(["transform"], {
+              duration: theme.transitions.duration.shorter
+            }),
+            ...(active && {
+              transform: "scale(2)",
+              backgroundColor: theme.palette.text.whitesecondary,
+            })
+          }
+        },
+        "& .label": {
+          ...baseStyles.label,
+          color: theme.palette.text.white,
+          flexGrow: 1,
+        },
+        "& .arrow": {
+          ...baseStyles.arrow,
+          color: theme.palette.text.white
+        },
         // fontWeight: theme.typography.fontWeightSemiBold,
       }),
       ...(opened && {
-        color: theme.palette.text.primary,
+        color: theme.palette.text.white,
         backgroundColor: theme.palette.action.hover
       })
     })

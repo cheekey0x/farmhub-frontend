@@ -64,7 +64,11 @@
   "messaging": "即時通訊",
   "team_manage": "團隊管理",
   "basic_data": "基礎數據",
-  "subscription": "訂閱管理",
   "system_setting": "系統設置",
-  "platform_Setting": "平臺設定"
+  "platform_Setting": "平臺設定",
+  "admin_setting": "管理员设置",
+  "firstpage_settting": "首页设置",
+  "register_company": "注册企业管理",
+  "subscription": "訂閱管理",
+  "sms_api_setting": "短消息接口设置"
 }

@@ -16,6 +16,7 @@ import { ConfirmDialog } from 'src/components/custom-dialog';
 import CustomPopover, { usePopover } from 'src/components/custom-popover';
 
 import { IUserItem } from 'src/types/user';
+import { useTranslate } from 'src/locales';
 
 // import UserQuickEditForm from './user-quick-edit-form';
 
@@ -36,6 +37,7 @@ export default function UserTableRow({
     onSelectRow,
     onDeleteRow,
 }: Props) {
+    const { t } = useTranslate();
     const { name, avatarUrl, company, role, status, email, phoneNumber } = row;
 
     const confirm = useBoolean();
@@ -57,20 +59,22 @@ export default function UserTableRow({
 
                     <ListItemText
                         primary={name}
-                        secondary={email}
-                        primaryTypographyProps={{ typography: 'body2' }}
+                        // secondary={email}
+                        primaryTypographyProps={{ typography: 'caption' }}
                         secondaryTypographyProps={{
                             component: 'span',
                             color: 'text.disabled',
                         }}
+                        sx={{ whiteSpace: "nowrap" }}
                     />
                 </TableCell>
 
-                <TableCell sx={{ whiteSpace: 'nowrap' }}>{phoneNumber}</TableCell>
+                <TableCell sx={{ whiteSpace: 'nowrap', fontSize: 12 }}>{company}</TableCell>
+                <TableCell sx={{ whiteSpace: 'nowrap', fontSize: 12 }}>{phoneNumber}</TableCell>
 
-                <TableCell sx={{ whiteSpace: 'nowrap' }}>{company}</TableCell>
+                {/* <TableCell sx={{ whiteSpace: 'nowrap', fontSize: 12 }}>{company}</TableCell> */}
 
-                <TableCell sx={{ whiteSpace: 'nowrap' }}>{role}</TableCell>
+                <TableCell sx={{ whiteSpace: 'nowrap', fontSize: 12 }}>{email}</TableCell>
 
                 <TableCell>
                     <Label
@@ -82,13 +86,15 @@ export default function UserTableRow({
                             'default'
                         }
                     >
-                        {status}
+                        {t(status)}
                     </Label>
                 </TableCell>
+                <TableCell sx={{ whiteSpace: 'nowrap', fontSize: 12 }}>2024-01-10</TableCell>
 
                 <TableCell align="right" sx={{ px: 1, whiteSpace: 'nowrap' }}>
                     <Tooltip title="Quick Edit" placement="top" arrow>
-                        <IconButton color={quickEdit.value ? 'inherit' : 'default'} onClick={quickEdit.onTrue}>
+                        {/* <IconButton color={quickEdit.value ? 'inherit' : 'default'} onClick={quickEdit.onTrue}> */}
+                        <IconButton color={quickEdit.value ? 'inherit' : 'default'}>
                             <Iconify icon="solar:pen-bold" />
                         </IconButton>
                     </Tooltip>
@@ -108,10 +114,10 @@ export default function UserTableRow({
                 sx={{ width: 140 }}
             >
                 <MenuItem
-                    onClick={() => {
-                        confirm.onTrue();
-                        popover.onClose();
-                    }}
+                    // onClick={() => {
+                    //     confirm.onTrue();
+                    //     popover.onClose();
+                    // }}
                     sx={{ color: 'error.main' }}
                 >
                     <Iconify icon="solar:trash-bin-trash-bold" />
@@ -119,10 +125,10 @@ export default function UserTableRow({
                 </MenuItem>
 
                 <MenuItem
-                    onClick={() => {
-                        onEditRow();
-                        popover.onClose();
-                    }}
+                // onClick={() => {
+                //     onEditRow();
+                //     popover.onClose();
+                // }}
                 >
                     <Iconify icon="solar:pen-bold" />
                     Edit

@@ -46,32 +46,44 @@ import UserTableRow from './user-table-row';
 import UserTableToolbar from './user-table-toolbar';
 import UserTableFiltersResult from './user-table-filters-result';
 import { useTranslate } from 'src/locales';
+import { Stack, Typography } from '@mui/material';
+import CardWrapper from 'src/components/card-wrapper';
+import CardWrapperHeader from 'src/components/card-wrapper-header'
+import { useTheme } from '@mui/material';
+import { varHover } from 'src/components/animate';
+import { m } from 'framer-motion';
 
 
-// ----------------------------------------------------------------------
 
-const STATUS_OPTIONS = [{ value: 'all', label: 'All' }, ...USER_STATUS_OPTIONS];
-
-const TABLE_HEAD = [
-    { id: 'name', label: 'Name' },
-    { id: 'phoneNumber', label: 'Phone Number', width: 180 },
-    { id: 'company', label: 'Company', width: 220 },
-    { id: 'role', label: 'Role', width: 180 },
-    { id: 'status', label: 'Status', width: 100 },
-    { id: '', width: 88 },
-];
-
-const defaultFilters: IUserTableFilters = {
-    name: '',
-    role: [],
-    status: 'all',
-};
-
-// ----------------------------------------------------------------------
 
 export default function UserListView() {
     const { t } = useTranslate();
+
+    // ----------------------------------------------------------------------
+
+    const STATUS_OPTIONS = [{ value: 'all', label: 'All' }, ...USER_STATUS_OPTIONS];
+
+    const TABLE_HEAD = [
+        { id: 'name', label: t('Name') },
+        { id: 'company', label: t('Department'), width: 100 },
+        { id: 'phoneNumber', label: t('Phone_Number'), width: 180 },
+        { id: 'email', label: t('Email'), width: 120 },
+        // { id: 'role', label: 'Role', width: 180 },
+        { id: 'status', label: t('Status'), width: 100 },
+        { id: 'created_at', label: t('Create_Time'), width: 100 },
+        { id: '', width: 88 },
+    ];
+
+    const defaultFilters: IUserTableFilters = {
+        name: '',
+        role: [],
+        status: 'all',
+    };
+
+    // ----------------------------------------------------------------------
+
     const table = useTable();
+    const theme = useTheme()
 
     const settings = useSettingsContext();
 
@@ -152,175 +164,246 @@ export default function UserListView() {
 
     return (
         <>
-            <Container maxWidth={settings.themeStretch ? false : 'lg'}>
+            {/* <Container
+                // maxWidth={settings.themeStretch ? false : 'lg'}
+                sx={{ overflow: "auto" }}
+            > */}
+
+            <Stack overflow="auto">
                 <CustomBreadcrumbs
-                    // heading={t('Admin')}
                     links={[
-                        { name: t('Platform Setting'), href: paths.dashboard.root },
-                        { name: t('Admin'), href: paths.platform.admin },
+                        { name: t('platform_Setting'), href: paths.dashboard.root },
+                        { name: t('admin_setting'), href: paths.platform.admin },
                     ]}
-                    // action={
-                    //     <Button
-                    //         component={RouterLink}
-                    //         href={paths.platform.admin}
-                    //         variant="contained"
-                    //         startIcon={<Iconify icon="mingcute:add-line" />}
-                    //     >
-                    //         {t('Add Admin')}
-                    //     </Button>
-                    // }
                     sx={{
-                        mb: { xs: 2, md: 3 },
+                        // mb: { xs: 2, md: 2 },
+                        mt: { xs: 2, md: 1.5 }
                     }}
                 />
+                <CardWrapper>
+                    <CardWrapperHeader title={t('admin_setting')}>
+                        <Stack
+                            flexDirection="row"
+                            spacing={1}
+                        >
+                            <IconButton
+                                component={m.button}
+                                whileTap="tap"
+                                whileHover="hover"
+                                variants={varHover(1.05)}
+                                sx={{
+                                    borderRadius: "50%",
+                                    backgroundColor: theme.palette.background.default,
+                                    width: 20,
+                                    height: 20,
+                                    padding: 0.5,
+                                    "&:hover": {
+                                        backgroundColor: theme.palette.background.default,
+                                    }
+                                }}
+                            >
+                                <Iconify color="#000" icon="material-symbols:fullscreen" />
+                            </IconButton>
 
-                <Card
-                    sx={{
-                        // filter: "drop-shadow(0 0 0.5rem)"
-                        boxShadow: "rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px"
-                    }}
-                >
-                    {false && (
-                        <Tabs
-                            value={filters.status}
-                            // onChange={handleFilterStatus}
+                            <IconButton
+                                component={m.button}
+                                whileTap="tap"
+                                whileHover="hover"
+                                variants={varHover(1.05)}
+                                sx={{
+                                    borderRadius: "50%",
+                                    backgroundColor: theme.palette.background.refresh,
+                                    width: 20,
+                                    height: 20,
+                                    padding: 0.5,
+                                    "&:hover": {
+                                        backgroundColor: theme.palette.background.refresh,
+                                    }
+                                }}
+                            >
+                                <Iconify color="#fff" icon="material-symbols:refresh" />
+                            </IconButton>
+                        </Stack>
+                    </CardWrapperHeader>
+
+                    <Stack
+                        overflow="auto"
+                        sx={{ flexGrow: 1 }}>
+                        {false && (
+                            <Tabs
+                                value={filters.status}
+                                // onChange={handleFilterStatus}
+                                sx={{
+                                    px: 2.5,
+                                    boxShadow: (theme) => `inset 0 -2px 0 0 ${alpha(theme.palette.grey[500], 0.08)}`,
+                                }}
+                            >
+                                {STATUS_OPTIONS.map((tab) => (
+                                    <Tab
+                                        key={tab.value}
+                                        iconPosition="end"
+                                        value={tab.value}
+                                        label={tab.label}
+                                        icon={
+                                            <Label
+                                                variant={
+                                                    ((tab.value === 'all' || tab.value === filters.status) && 'filled') || 'soft'
+                                                }
+                                                color={
+                                                    (tab.value === 'active' && 'success') ||
+                                                    (tab.value === 'pending' && 'warning') ||
+                                                    (tab.value === 'banned' && 'error') ||
+                                                    'default'
+                                                }
+                                            >
+                                                {tab.value === 'all' && _userList.length}
+                                                {tab.value === 'active' &&
+                                                    _userList.filter((user) => user.status === 'active').length}
+
+                                                {tab.value === 'pending' &&
+                                                    _userList.filter((user) => user.status === 'pending').length}
+                                                {tab.value === 'banned' &&
+                                                    _userList.filter((user) => user.status === 'banned').length}
+                                                {tab.value === 'rejected' &&
+                                                    _userList.filter((user) => user.status === 'rejected').length}
+                                            </Label>
+                                        }
+                                    />
+                                ))}
+                            </Tabs>
+
+                        )}
+
+                        <Stack
+                            flexDirection="row"
+                            justifyContent="space-between"
+                            alignItems="center"
+                            spacing={2}
                             sx={{
-                                px: 2.5,
-                                boxShadow: (theme) => `inset 0 -2px 0 0 ${alpha(theme.palette.grey[500], 0.08)}`,
+                                p: 2.5,
+                                pr: { xs: 2.5, md: 1 },
                             }}
                         >
-                            {STATUS_OPTIONS.map((tab) => (
-                                <Tab
-                                    key={tab.value}
-                                    iconPosition="end"
-                                    value={tab.value}
-                                    label={tab.label}
-                                    icon={
-                                        <Label
-                                            variant={
-                                                ((tab.value === 'all' || tab.value === filters.status) && 'filled') || 'soft'
-                                            }
-                                            color={
-                                                (tab.value === 'active' && 'success') ||
-                                                (tab.value === 'pending' && 'warning') ||
-                                                (tab.value === 'banned' && 'error') ||
-                                                'default'
-                                            }
-                                        >
-                                            {tab.value === 'all' && _userList.length}
-                                            {tab.value === 'active' &&
-                                                _userList.filter((user) => user.status === 'active').length}
+                            <UserTableToolbar
+                                filters={filters}
+                                onFilters={handleFilters}
+                                //
+                                roleOptions={_roles}
+                            />
 
-                                            {tab.value === 'pending' &&
-                                                _userList.filter((user) => user.status === 'pending').length}
-                                            {tab.value === 'banned' &&
-                                                _userList.filter((user) => user.status === 'banned').length}
-                                            {tab.value === 'rejected' &&
-                                                _userList.filter((user) => user.status === 'rejected').length}
-                                        </Label>
-                                    }
-                                />
-                            ))}
-                        </Tabs>
+                            <Stack
+                                direction="row"
+                                alignItems="center"
+                            >
 
-                    )}
+                                <Button
+                                    variant="contained"
+                                    color='success'
+                                >
+                                    {t('Add Admin')}
+                                </Button>
+                            </Stack>
+                        </Stack>
 
-                    <UserTableToolbar
-                        filters={filters}
-                        onFilters={handleFilters}
-                        //
-                        roleOptions={_roles}
-                    />
+                        {canReset && (
+                            <UserTableFiltersResult
+                                filters={filters}
+                                onFilters={handleFilters}
+                                //
+                                onResetFilters={handleResetFilters}
+                                //
+                                results={dataFiltered.length}
+                                sx={{ p: 2.5, pt: 0 }}
+                            />
+                        )}
 
-                    {canReset && (
-                        <UserTableFiltersResult
-                            filters={filters}
-                            onFilters={handleFilters}
-                            //
-                            onResetFilters={handleResetFilters}
-                            //
-                            results={dataFiltered.length}
-                            sx={{ p: 2.5, pt: 0 }}
-                        />
-                    )}
-
-                    <TableContainer sx={{ position: 'relative', overflow: 'unset' }}>
-                        <TableSelectedAction
-                            dense={table.dense}
-                            numSelected={table.selected.length}
-                            rowCount={tableData.length}
-                            onSelectAllRows={(checked) =>
-                                table.onSelectAllRows(
-                                    checked,
-                                    tableData.map((row) => row.id)
-                                )
-                            }
-                            action={
-                                <Tooltip title="Delete">
-                                    <IconButton color="primary" onClick={confirm.onTrue}>
-                                        <Iconify icon="solar:trash-bin-trash-bold" />
-                                    </IconButton>
-                                </Tooltip>
-                            }
-                        />
-
-                        <Scrollbar>
-                            <Table size={table.dense ? 'small' : 'medium'} sx={{ minWidth: 960 }}>
-                                <TableHeadCustom
-                                    order={table.order}
-                                    orderBy={table.orderBy}
-                                    headLabel={TABLE_HEAD}
-                                    rowCount={tableData.length}
+                        <Scrollbar
+                            sx={{
+                                flexGrow: 1
+                            }}
+                        >
+                            <TableContainer sx={{ position: 'relative', overflow: 'unset' }}>
+                                <TableSelectedAction
+                                    dense={table.dense}
                                     numSelected={table.selected.length}
-                                    onSort={table.onSort}
+                                    rowCount={tableData.length}
                                     onSelectAllRows={(checked) =>
                                         table.onSelectAllRows(
                                             checked,
                                             tableData.map((row) => row.id)
                                         )
                                     }
+                                // action={
+                                //     <Tooltip title="Delete">
+                                //         <IconButton color="primary" onClick={confirm.onTrue}>
+                                //             <Iconify icon="solar:trash-bin-trash-bold" />
+                                //         </IconButton>
+                                //     </Tooltip>
+                                // }
                                 />
 
-                                <TableBody>
-                                    {dataFiltered
-                                        .slice(
-                                            table.page * table.rowsPerPage,
-                                            table.page * table.rowsPerPage + table.rowsPerPage
-                                        )
-                                        .map((row) => (
-                                            <UserTableRow
-                                                key={row.id}
-                                                row={row}
-                                                selected={table.selected.includes(row.id)}
-                                                onSelectRow={() => table.onSelectRow(row.id)}
-                                                onDeleteRow={() => handleDeleteRow(row.id)}
-                                                onEditRow={() => handleEditRow(row.id)}
+                                <Scrollbar>
+                                    <Table size="small" sx={{ minWidth: 960 }}>
+                                        <TableHeadCustom
+                                            order={table.order}
+                                            orderBy={table.orderBy}
+                                            headLabel={TABLE_HEAD}
+                                            rowCount={tableData.length}
+                                            numSelected={table.selected.length}
+                                            onSort={table.onSort}
+                                            onSelectAllRows={(checked) =>
+                                                table.onSelectAllRows(
+                                                    checked,
+                                                    tableData.map((row) => row.id)
+                                                )
+                                            }
+                                        />
+
+                                        <TableBody>
+                                            {dataFiltered
+                                                // .slice(
+                                                //     table.page * table.rowsPerPage,
+                                                //     table.page * table.rowsPerPage + table.rowsPerPage
+                                                // )
+                                                .map((row) => (
+                                                    <UserTableRow
+                                                        key={row.id}
+                                                        row={row}
+                                                        selected={table.selected.includes(row.id)}
+                                                        onSelectRow={() => table.onSelectRow(row.id)}
+                                                        onDeleteRow={() => handleDeleteRow(row.id)}
+                                                        onEditRow={() => handleEditRow(row.id)}
+                                                    />
+                                                ))}
+
+                                            <TableEmptyRows
+                                                height={denseHeight}
+                                                emptyRows={emptyRows(table.page, table.rowsPerPage, tableData.length)}
                                             />
-                                        ))}
 
-                                    <TableEmptyRows
-                                        height={denseHeight}
-                                        emptyRows={emptyRows(table.page, table.rowsPerPage, tableData.length)}
-                                    />
-
-                                    <TableNoData notFound={notFound} />
-                                </TableBody>
-                            </Table>
+                                            <TableNoData notFound={notFound} />
+                                        </TableBody>
+                                    </Table>
+                                </Scrollbar>
+                            </TableContainer>
                         </Scrollbar>
-                    </TableContainer>
 
-                    <TablePaginationCustom
-                        count={dataFiltered.length}
-                        page={table.page}
-                        rowsPerPage={table.rowsPerPage}
-                        onPageChange={table.onChangePage}
-                        onRowsPerPageChange={table.onChangeRowsPerPage}
-                    //
-                    // dense={table.dense}
-                    // onChangeDense={table.onChangeDense}
-                    />
-                </Card>
-            </Container>
+                        {/* <TablePaginationCustom
+                            count={dataFiltered.length}
+                            page={table.page}
+                            rowsPerPage={table.rowsPerPage}
+                            onPageChange={table.onChangePage}
+                            onRowsPerPageChange={table.onChangeRowsPerPage}
+                        
+                        dense={table.dense}
+                        onChangeDense={table.onChangeDense}
+                        /> */}
+                    </Stack>
+                </CardWrapper>
+
+
+            </Stack>
+            {/* </Container> */}
 
             <ConfirmDialog
                 open={confirm.value}

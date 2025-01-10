@@ -12,11 +12,13 @@ function NavSectionMini({ data, slotProps, ...other }: NavProps) {
     <Stack
       component="nav"
       id="nav-section-mini"
-      spacing={`${slotProps?.gap || 4}px`}
+      // spacing={`${slotProps?.gap || 4}px`}
       {...other}
       sx={{
         display: "flex",
-        gap: 2
+        gap: 0.5,
+        mt: 1,
+        mx: 1
       }}
     >
       {data.map((group, index) => (

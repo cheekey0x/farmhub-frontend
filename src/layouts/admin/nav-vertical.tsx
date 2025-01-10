@@ -82,7 +82,7 @@ export default function NavVertical({ openNav, onCloseNav }: Props) {
         width: { lg: NAV.W_VERTICAL },
       }}
     >
-      {/* <NavToggleButton /> */}
+      <NavToggleButton />
 
       {lgUp ? (
         <Stack

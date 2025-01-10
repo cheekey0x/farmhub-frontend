@@ -38,38 +38,27 @@ const Logo = forwardRef<HTMLDivElement, LogoProps>(
           alignItems="center"
           spacing={1}
         >
-          {settings.themeLayout !== "mini" ? (
-            <Box
-              display="flex"
-              // justifyContent="center"
-              alignItems="center"
+          <Box
+            display="flex"
+            alignItems="center"
+          >
+            <Image
+              alt="logo"
+              src={logoSrc}
+              sx={{ height: 36 }}
+            />
+            <Typography
+              variant="h6"
+              component="h6"
+              fontWeight={400}
+              sx={{
+                color: theme.palette.text.light,
+                ml: 1
+              }}
             >
-              <Image
-                alt="logo"
-                // src={
-                //   settings.themeMode === "dark"
-                //     ? "/assets/icon/logo_with_title.svg"
-                //     : "/assets/icon/logo_with_title-white.svg"
-                // }
-                src={logoSrc}
-                sx={{ height: 36 }}
-              />
-              <Typography
-                variant="h6"
-                component="h6"
-                fontWeight={400}
-                sx={{
-                  color: theme.palette.text.light,
-                  ml: 1
-                }}
-              >
-                飞鸟科技FarmHub智慧农业系统
-              </Typography>
-            </Box>
-
-          ) : (
-            <Box component="img" src={logoSrc} width={30} />
-          )}
+              飞鸟科技FarmHub智慧农业系统
+            </Typography>
+          </Box>
         </Stack>
       </Stack>
     );

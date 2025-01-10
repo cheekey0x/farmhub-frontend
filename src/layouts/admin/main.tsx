@@ -21,17 +21,19 @@ export default function Main({ children, sx, ...other }: BoxProps) {
     <Box
       component="main"
       sx={{
-        flexGrow: 1,
+        height: "100vh",
+        // flexGrow: 1,
         minHeight: 1,
         display: "flex",
         flexDirection: "column",
         pt: `${HEADER.H_MOBILE + SPACING}px`,
         pb: 5,
         backgroundColor: settings.themeMode === "light" ? "#F9FAFD" : "#12181f",
+        overflow: "auto",
         ...(lgUp && {
           px: 2,
           pt: `${HEADER.H_DESKTOP + SPACING}px`,
-          pb: 3,
+          pb: 1,
           width: `calc(100% - ${NAV.W_VERTICAL}px)`,
           ...(isNavMini && {
             width: `calc(100% - ${NAV.W_MINI}px)`
