@@ -108,5 +108,13 @@
   "Email": "Email",
   "Status": "Status",
   "Create_Time": "Create Time",
-  "Action": "Action"
+  "Action": "Action",
+  "Add_Admin": "Add Admin",
+  "delete_confirmation": "Delete",
+  "Are you sure want to delete?": "Are you sure want to delete?",
+  "Delete": "Delete",
+  "Edit": "Edit",
+  "This action cannot be undone.": "This action cannot be undone.",
+  "Detail Info": "Detail Info",
+  "Edit Admin": "Edit Admin"
 }

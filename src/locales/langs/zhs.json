@@ -108,5 +108,13 @@
   "Email": "电子邮件",
   "Status": "状态",
   "Create_Time": "创建时间",
-  "Action": "操作"
+  "Action": "操作",
+  "Add_Admin": "添加管理员",
+  "delete_confirmation": "删除确认",
+  "Are you sure want to delete?": "您确定要删除吗？",
+  "Delete": "删除",
+  "This action cannot be undone.": "此操作无法撤消。",
+  "Edit": "编辑",
+  "Detail Info": "详细信息",
+  "Edit Admin": "编辑管理员"
 }

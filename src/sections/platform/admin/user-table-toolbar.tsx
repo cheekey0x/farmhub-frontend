@@ -125,12 +125,12 @@ export default function UserTableToolbar({
                             },
                         }}
                     >
-                        {/* {roleOptions.map((option) => (
+                        {roleOptions.map((option) => (
                             <MenuItem key={option} value={option}>
                                 <Checkbox disableRipple size="small" checked={filters.role.includes(option)} />
                                 {option}
                             </MenuItem>
-                        ))} */}
+                        ))}
                     </Select>
                 </FormControl>
             </Stack>

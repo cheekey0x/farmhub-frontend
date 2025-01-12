@@ -39,6 +39,7 @@ export function RHFSelect({
       render={({ field, fieldState: { error } }) => (
         <TextField
           {...field}
+          size="small"
           select
           fullWidth
           SelectProps={{

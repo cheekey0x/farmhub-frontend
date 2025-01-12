@@ -49,7 +49,17 @@ export default function ThemeProvider({ children }: Props) {
       direction: settings.themeDirection,
       shadows: shadows(settings.themeMode),
       shape: { borderRadius: 8 },
-      typography
+      typography: {
+        ...typography,
+        tranctSpan: {
+          display: "inline-block",
+          overflow: "hidden",
+          whiteSpace: "nowrap",
+          textOverflow: "ellipsis",
+          fontSize: 12,
+          fontWeight: 300
+        }
+      }
     }),
     [
       settings.themeMode,

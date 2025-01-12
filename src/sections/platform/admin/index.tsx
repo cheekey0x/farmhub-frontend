@@ -52,6 +52,7 @@ import CardWrapperHeader from 'src/components/card-wrapper-header'
 import { useTheme } from '@mui/material';
 import { varHover } from 'src/components/animate';
 import { m } from 'framer-motion';
+import UserCreateForm from './user-create-form';
 
 
 
@@ -71,7 +72,7 @@ export default function UserListView() {
         // { id: 'role', label: 'Role', width: 180 },
         { id: 'status', label: t('Status'), width: 100 },
         { id: 'created_at', label: t('Create_Time'), width: 100 },
-        { id: '', width: 88 },
+        { id: '', label: t('Action'), width: 88 },
     ];
 
     const defaultFilters: IUserTableFilters = {
@@ -80,10 +81,16 @@ export default function UserListView() {
         status: 'all',
     };
 
+    const fake_roles = [
+        "Active",
+        "Disable"
+    ]
+
     // ----------------------------------------------------------------------
 
     const table = useTable();
     const theme = useTheme()
+    const createAdmin = useBoolean();
 
     const settings = useSettingsContext();
 
@@ -281,14 +288,14 @@ export default function UserListView() {
                             spacing={2}
                             sx={{
                                 p: 2.5,
-                                pr: { xs: 2.5, md: 1 },
+                                px: { xs: 2.5, md: 2.5 },
                             }}
                         >
                             <UserTableToolbar
                                 filters={filters}
                                 onFilters={handleFilters}
                                 //
-                                roleOptions={_roles}
+                                roleOptions={fake_roles}
                             />
 
                             <Stack
@@ -297,10 +304,11 @@ export default function UserListView() {
                             >
 
                                 <Button
+                                    onClick={createAdmin.onTrue}
                                     variant="contained"
                                     color='success'
                                 >
-                                    {t('Add Admin')}
+                                    {t('Add_Admin')}
                                 </Button>
                             </Stack>
                         </Stack>
@@ -317,74 +325,76 @@ export default function UserListView() {
                             />
                         )}
 
+
+                        <TableSelectedAction
+                            // dense={table.dense}
+                            numSelected={table.selected.length}
+                            rowCount={tableData.length}
+                            onSelectAllRows={(checked) =>
+                                table.onSelectAllRows(
+                                    checked,
+                                    tableData.map((row) => row.id)
+                                )
+                            }
+                            action={
+                                <Tooltip title="Delete">
+                                    <IconButton color="error" onClick={confirm.onTrue}>
+                                        <Iconify icon="solar:trash-bin-trash-bold" />
+                                    </IconButton>
+                                </Tooltip>
+                            }
+                        />
                         <Scrollbar
                             sx={{
                                 flexGrow: 1
                             }}
                         >
                             <TableContainer sx={{ position: 'relative', overflow: 'unset' }}>
-                                <TableSelectedAction
-                                    dense={table.dense}
-                                    numSelected={table.selected.length}
-                                    rowCount={tableData.length}
-                                    onSelectAllRows={(checked) =>
-                                        table.onSelectAllRows(
-                                            checked,
-                                            tableData.map((row) => row.id)
-                                        )
-                                    }
-                                // action={
-                                //     <Tooltip title="Delete">
-                                //         <IconButton color="primary" onClick={confirm.onTrue}>
-                                //             <Iconify icon="solar:trash-bin-trash-bold" />
-                                //         </IconButton>
-                                //     </Tooltip>
-                                // }
-                                />
 
-                                <Scrollbar>
-                                    <Table size="small" sx={{ minWidth: 960 }}>
-                                        <TableHeadCustom
-                                            order={table.order}
-                                            orderBy={table.orderBy}
-                                            headLabel={TABLE_HEAD}
-                                            rowCount={tableData.length}
-                                            numSelected={table.selected.length}
-                                            onSort={table.onSort}
-                                            onSelectAllRows={(checked) =>
-                                                table.onSelectAllRows(
-                                                    checked,
-                                                    tableData.map((row) => row.id)
-                                                )
-                                            }
+
+
+                                <Table stickyHeader size="small" sx={{ minWidth: 960 }}>
+                                    <TableHeadCustom
+                                        order={table.order}
+                                        orderBy={table.orderBy}
+                                        headLabel={TABLE_HEAD}
+                                        rowCount={tableData.length}
+                                        numSelected={table.selected.length}
+                                        onSort={table.onSort}
+                                        onSelectAllRows={(checked) =>
+                                            table.onSelectAllRows(
+                                                checked,
+                                                tableData.map((row) => row.id)
+                                            )
+                                        }
+                                    />
+
+                                    <TableBody>
+                                        {dataFiltered
+                                            // .slice(
+                                            //     table.page * table.rowsPerPage,
+                                            //     table.page * table.rowsPerPage + table.rowsPerPage
+                                            // )
+                                            .map((row) => (
+                                                <UserTableRow
+                                                    key={row.id}
+                                                    row={row}
+                                                    selected={table.selected.includes(row.id)}
+                                                    onSelectRow={() => table.onSelectRow(row.id)}
+                                                    onDeleteRow={() => handleDeleteRow(row.id)}
+                                                    onEditRow={() => handleEditRow(row.id)}
+                                                />
+                                            ))}
+
+                                        <TableEmptyRows
+                                            height={denseHeight}
+                                            emptyRows={emptyRows(table.page, table.rowsPerPage, tableData.length)}
                                         />
 
-                                        <TableBody>
-                                            {dataFiltered
-                                                // .slice(
-                                                //     table.page * table.rowsPerPage,
-                                                //     table.page * table.rowsPerPage + table.rowsPerPage
-                                                // )
-                                                .map((row) => (
-                                                    <UserTableRow
-                                                        key={row.id}
-                                                        row={row}
-                                                        selected={table.selected.includes(row.id)}
-                                                        onSelectRow={() => table.onSelectRow(row.id)}
-                                                        onDeleteRow={() => handleDeleteRow(row.id)}
-                                                        onEditRow={() => handleEditRow(row.id)}
-                                                    />
-                                                ))}
+                                        <TableNoData notFound={notFound} />
+                                    </TableBody>
+                                </Table>
 
-                                            <TableEmptyRows
-                                                height={denseHeight}
-                                                emptyRows={emptyRows(table.page, table.rowsPerPage, tableData.length)}
-                                            />
-
-                                            <TableNoData notFound={notFound} />
-                                        </TableBody>
-                                    </Table>
-                                </Scrollbar>
                             </TableContainer>
                         </Scrollbar>
 
@@ -405,15 +415,18 @@ export default function UserListView() {
             </Stack>
             {/* </Container> */}
 
+            <UserCreateForm open={createAdmin.value} onClose={createAdmin.onFalse} />
+
             <ConfirmDialog
                 open={confirm.value}
                 onClose={confirm.onFalse}
-                title="Delete"
-                content={
-                    <>
-                        Are you sure want to delete <strong> {table.selected.length} </strong> items?
-                    </>
-                }
+                title={t('delete_confirmation')}
+                content={`${t('Are you sure want to delete?')} ${t('This action cannot be undone.')}`}
+                // content={
+                //     <>
+                //         Are you sure want to delete <strong> {table.selected.length} </strong> items?
+                //     </>
+                // }
                 action={
                     <Button
                         variant="contained"
@@ -423,7 +436,7 @@ export default function UserListView() {
                             confirm.onFalse();
                         }}
                     >
-                        Delete
+                        {t('Delete')}
                     </Button>
                 }
             />

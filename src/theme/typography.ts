@@ -36,6 +36,11 @@ declare module "@mui/material/styles" {
     fontWeightSemiBold: React.CSSProperties["fontWeight"];
   }
 }
+declare module '@mui/material/Typography' {
+  interface TypographyPropsVariantOverrides {
+    tranctSpan: true;
+  }
+}
 
 // ----------------------------------------------------------------------
 
@@ -114,9 +119,14 @@ export const typography = {
     textTransform: "uppercase"
   },
   button: {
-    fontWeight: 700,
+    fontWeight: 600,
     lineHeight: 24 / 14,
-    fontSize: pxToRem(14),
+    fontSize: pxToRem(12),
     textTransform: "unset"
-  }
+  },
+  // tranctSpan: {
+  //   fontWeight: 300,
+  //   lineHeight: 1,
+  //   fontSize: pxToRem(12),
+  // }
 } as const;

@@ -38,17 +38,18 @@ export default function TableSelectedAction({
         left: 0,
         width: 1,
         zIndex: 9,
-        height: 58,
-        position: "absolute",
-        bgcolor: theme.palette.background.lighter,
-        ...(dense && {
-          height: 38
-        }),
+        height: 38,
+        position: "sticky",
+        // bgcolor: theme.palette.background.neutral,
+        bgcolor: "#C8FAD6",
+        // ...(dense && {
+        // }),
+        // height: 38,
         ...sx
       }}
       {...other}
     >
-      <Checkbox
+      {/* <Checkbox
         sx={{
           color: `${theme.palette.background.main}!important`
         }}
@@ -57,20 +58,20 @@ export default function TableSelectedAction({
         onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
           onSelectAllRows(event.target.checked)
         }
-      />
+      /> */}
 
       <Typography
         variant="subtitle2"
         sx={{
           ml: 2,
           flexGrow: 1,
-          color: "primary.main",
+          color: theme.palette.text.main,
           ...(dense && {
             ml: 3
           })
         }}
       >
-        {/* {numSelected} selected */}
+        {numSelected} selected
       </Typography>
       {action && action}
     </Stack>

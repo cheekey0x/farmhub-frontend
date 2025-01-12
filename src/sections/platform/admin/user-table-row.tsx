@@ -17,6 +17,9 @@ import CustomPopover, { usePopover } from 'src/components/custom-popover';
 
 import { IUserItem } from 'src/types/user';
 import { useTranslate } from 'src/locales';
+import Typography from '@mui/material/Typography'
+import { Box } from '@mui/material';
+import UserEditForm from './user-edit-form';
 
 // import UserQuickEditForm from './user-quick-edit-form';
 
@@ -25,7 +28,7 @@ import { useTranslate } from 'src/locales';
 type Props = {
     selected: boolean;
     onEditRow: VoidFunction;
-    row: IUserItem;
+    row: any;
     onSelectRow: VoidFunction;
     onDeleteRow: VoidFunction;
 };
@@ -57,7 +60,7 @@ export default function UserTableRow({
                     {/* <Avatar alt={name} src={avatarUrl} sx={{ mr: 2 }} /> */}
                     <Avatar alt={name} src="/assets/images/avatar/user-default.jpg" sx={{ mr: 2 }} />
 
-                    <ListItemText
+                    {/* <ListItemText
                         primary={name}
                         // secondary={email}
                         primaryTypographyProps={{ typography: 'caption' }}
@@ -66,15 +69,21 @@ export default function UserTableRow({
                             color: 'text.disabled',
                         }}
                         sx={{ whiteSpace: "nowrap" }}
-                    />
+                    /> */}
+                    <Typography variant="tranctSpan" color="initial" sx={{ maxWidth: 120 }}>{name}</Typography>
                 </TableCell>
 
-                <TableCell sx={{ whiteSpace: 'nowrap', fontSize: 12 }}>{company}</TableCell>
-                <TableCell sx={{ whiteSpace: 'nowrap', fontSize: 12 }}>{phoneNumber}</TableCell>
+                <TableCell>
+                    <Typography variant="tranctSpan" color="initial" sx={{ maxWidth: 100 }}>{company}</Typography>
+                </TableCell>
 
-                {/* <TableCell sx={{ whiteSpace: 'nowrap', fontSize: 12 }}>{company}</TableCell> */}
+                <TableCell>
+                    <Typography variant="tranctSpan" color="initial">{phoneNumber}</Typography>
+                </TableCell>
 
-                <TableCell sx={{ whiteSpace: 'nowrap', fontSize: 12 }}>{email}</TableCell>
+                <TableCell>
+                    <Typography variant="tranctSpan" color="initial" sx={{ maxWidth: 100 }}>{email}</Typography>
+                </TableCell>
 
                 <TableCell>
                     <Label
@@ -89,12 +98,15 @@ export default function UserTableRow({
                         {t(status)}
                     </Label>
                 </TableCell>
-                <TableCell sx={{ whiteSpace: 'nowrap', fontSize: 12 }}>2024-01-10</TableCell>
+                {/* <TableCell sx={{ whiteSpace: 'nowrap', fontSize: 12 }}>2024-01-10</TableCell> */}
+                <TableCell>
+                    <Typography variant="tranctSpan" color="initial">2024-01-10</Typography>
+                </TableCell>
 
                 <TableCell align="right" sx={{ px: 1, whiteSpace: 'nowrap' }}>
                     <Tooltip title="Quick Edit" placement="top" arrow>
-                        {/* <IconButton color={quickEdit.value ? 'inherit' : 'default'} onClick={quickEdit.onTrue}> */}
-                        <IconButton color={quickEdit.value ? 'inherit' : 'default'}>
+                        <IconButton color={quickEdit.value ? 'inherit' : 'default'} onClick={quickEdit.onTrue}>
+                            {/* <IconButton color={quickEdit.value ? 'inherit' : 'default'}> */}
                             <Iconify icon="solar:pen-bold" />
                         </IconButton>
                     </Tooltip>
@@ -105,7 +117,7 @@ export default function UserTableRow({
                 </TableCell>
             </TableRow>
 
-            {/* <UserQuickEditForm currentUser={row} open={quickEdit.value} onClose={quickEdit.onFalse} /> */}
+            <UserEditForm currentUser={row} open={quickEdit.value} onClose={quickEdit.onFalse} />
 
             <CustomPopover
                 open={popover.open}
@@ -114,35 +126,47 @@ export default function UserTableRow({
                 sx={{ width: 140 }}
             >
                 <MenuItem
-                    // onClick={() => {
-                    //     confirm.onTrue();
-                    //     popover.onClose();
-                    // }}
-                    sx={{ color: 'error.main' }}
-                >
-                    <Iconify icon="solar:trash-bin-trash-bold" />
-                    Delete
-                </MenuItem>
-
-                <MenuItem
                 // onClick={() => {
                 //     onEditRow();
                 //     popover.onClose();
                 // }}
                 >
-                    <Iconify icon="solar:pen-bold" />
-                    Edit
+                    <Iconify icon="material-symbols:unknown-document-rounded" />
+                    {t('Detail Info')}
+                </MenuItem>
+
+                <MenuItem
+                    onClick={() => {
+                        confirm.onTrue();
+                        popover.onClose();
+                    }}
+                    sx={{ color: 'error.main' }}
+                >
+                    <Iconify icon="solar:trash-bin-trash-bold" />
+                    {t('Delete')}
                 </MenuItem>
             </CustomPopover>
 
             <ConfirmDialog
                 open={confirm.value}
                 onClose={confirm.onFalse}
-                title="Delete"
-                content="Are you sure want to delete?"
+                icon={
+                    // <Box
+                    //     color="error"
+                    //     sx={{
+                    //         display: "inline-flex",
+                    //         alignItems: "center",
+                    //         justifyContent: "center"
+                    //     }}>
+                    // </Box>
+                    <Iconify icon="solar:trash-bin-trash-bold" sx={{ color: "#fff", mr: 1 }} />
+                }
+                title={t('delete_confirmation')}
+                content={`${t('Are you sure want to delete?')} ${t('This action cannot be undone.')}`}
+                // content2={t('This action cannot be undone.')}
                 action={
                     <Button variant="contained" color="error" onClick={onDeleteRow}>
-                        Delete
+                        {t('Delete')}
                     </Button>
                 }
             />
